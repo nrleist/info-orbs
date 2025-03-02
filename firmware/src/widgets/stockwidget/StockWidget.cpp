@@ -1,18 +1,17 @@
 #include "StockWidget.h"
+#include "StockTranslations.h"
 #include "TaskFactory.h"
 #include <ArduinoJson.h>
 #include <iomanip>
 
 StockWidget::StockWidget(ScreenManager &manager, ConfigManager &config) : Widget(manager, config) {
     m_enabled = true; // Enabled by default
-    m_config.addConfigBool("StockWidget", "stocksEnabled", &m_enabled, "Enable Widget");
-    config.addConfigString("StockWidget", "stockList", &m_stockList, 200,
-                           "Choose 5 securities to track. You can track forex, crypto (symbol/USD) or stocks from any exchange (if one ticker is part of multiple exchanges you can add on '&country = Canada' to narrow down to your ticker)");
+    m_config.addConfigBool("StockWidget", "stocksEnabled", &m_enabled, t_enableWidget);
+    config.addConfigString("StockWidget", "stockList", &m_stockList, 200, t_stockList);
     char stockList[m_stockList.size()];
     strcpy(stockList, m_stockList.c_str());
 
-    String stockchangeFormats[] = {"Percent", "Price"};
-    m_config.addConfigComboBox("StockWidget", "stockchgFmt", &m_stockchangeformat, stockchangeFormats, 2, "Show percent or price change", true);
+    m_config.addConfigComboBox("StockWidget", "stockchgFmt", &m_stockchangeformat, t_stockChangeFormats, t_stockChangeFormat, true);
 
     char *symbol = strtok(stockList, ",");
     m_stockCount = 0;
@@ -38,11 +37,17 @@ void StockWidget::setup() {
 void StockWidget::draw(bool force) {
     m_manager.setFont(DEFAULT_FONT);
     for (int8_t i = 0; i < m_stockCount; i++) {
-        if (m_stocks[i].isChanged() || force) {
+        if (!m_initialized && !m_stocks[i].getSymbol().isEmpty() && m_stocks[i].getTicker().isEmpty()) {
+            m_manager.selectScreen(i);
+            m_manager.fillScreen(TFT_BLACK);
+            m_manager.setFontColor(TFT_WHITE);
+            m_manager.drawCentreString(I18n::get(t_loadingData), ScreenCenterX, ScreenCenterY, 16);
+        } else if (m_stocks[i].isChanged() || force) {
             displayStock(i, m_stocks[i], TFT_WHITE, TFT_BLACK);
             m_stocks[i].setChangedStatus(false);
         }
     }
+    m_initialized = true;
 }
 
 void StockWidget::update(bool force) {
@@ -123,9 +128,9 @@ void StockWidget::displayStock(int8_t displayIndex, StockDataModel &stock, uint3
     int smallFontSize = 11;
     int bigFontSize = 29;
     m_manager.setFontColor(TFT_WHITE, TFT_BLACK);
-    m_manager.drawCentreString("52 Week:", centre, 185, smallFontSize);
-    m_manager.drawCentreString("H: " + stock.getCurrencySymbol() + stock.getHighPrice(), centre, 200, smallFontSize);
-    m_manager.drawCentreString("L: " + stock.getCurrencySymbol() + stock.getLowPrice(), centre, 215, smallFontSize);
+    m_manager.drawCentreString(i18n(t_stock52week), centre, 185, smallFontSize);
+    m_manager.drawCentreString(i18nStr(t_highShort) + ": " + stock.getCurrencySymbol() + stock.getHighPrice(), centre, 200, smallFontSize);
+    m_manager.drawCentreString(i18nStr(t_lowShort) + ": " + stock.getCurrencySymbol() + stock.getLowPrice(), centre, 215, smallFontSize);
     m_manager.setFontColor(TFT_BLACK, TFT_LIGHTGREY);
     m_manager.drawString(stock.getCompany(), centre, 121, smallFontSize, Align::MiddleCenter);
     if (stock.getPercentChange() < 0.0) {
