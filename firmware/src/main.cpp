@@ -63,7 +63,6 @@ void setup() {
     Log.noticeln("🚀 Starting up...");
     Log.noticeln("PCB Version: %s", PCB_VERSION);
 
-
     wifiManager = new OrbsWiFiManager();
     config = new ConfigManager(*wifiManager);
     sm = new ScreenManager(tft);
