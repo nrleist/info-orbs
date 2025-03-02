@@ -132,6 +132,8 @@ void ClockWidget::update(bool force) {
         return;
     }
 
+    m_secondTimerPrev = millis();
+
     GlobalTime *time = GlobalTime::getInstance();
     if (force) {
         time->updateTime(true);
@@ -165,8 +167,6 @@ void ClockWidget::update(bool force) {
 
         m_lastMinuteSingle = m_minuteSingle;
     }
-
-    m_secondTimerPrev = millis();
 }
 
 void ClockWidget::changeFormat() {
