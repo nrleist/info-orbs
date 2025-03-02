@@ -46,10 +46,23 @@ void addWidgets() {
 void setup() {
     // Initialize global resources
     initializeGlobalResources();
+
+#ifdef SERIAL_INTERFACE_INIT_DELAY
+    // Add a delay to allow the serial interface to initialize
+    delay(SERIAL_INTERFACE_INIT_DELAY);
+#endif
+
     Serial.begin(115200);
+
+    // Clear the serial buffer of any garbage
+    while (Serial.available() > 0) {
+        Serial.read();
+    }
+
     Log.begin(LOG_LEVEL, &Serial);
-    Log.noticeln("Starting up...");
+    Log.noticeln("🚀 Starting up...");
     Log.noticeln("PCB Version: %s", PCB_VERSION);
+
 
     wifiManager = new OrbsWiFiManager();
     config = new ConfigManager(*wifiManager);
