@@ -2,6 +2,7 @@
 #include "ConfigManager.h"
 #include "Utils.h"
 #include <Arduino.h>
+#include <ArduinoLog.h>
 #include <LittleFS.h>
 
 ScreenManager *ScreenManager::instance = nullptr;
@@ -31,18 +32,18 @@ ScreenManager::ScreenManager(TFT_eSPI &tft) : m_tft(tft) {
     setFont(DEFAULT_FONT);
     m_render.setDrawer(m_tft);
 
-    Serial.println("ScreenManager initialized");
-    Serial.println("TFT_MOSI:" + String(TFT_MOSI));
-    Serial.println("TFT_MISO:" + String(TFT_MISO));
-    Serial.println("TFT_SCLK:" + String(TFT_SCLK));
-    Serial.println("TFT_CS:" + String(TFT_CS));
-    Serial.println("TFT_DC:" + String(TFT_DC));
-    Serial.println("TFT_RST:" + String(TFT_RST));
-    Serial.println("SCREEN_1_CS:" + String(SCREEN_1_CS));
-    Serial.println("SCREEN_2_CS:" + String(SCREEN_2_CS));
-    Serial.println("SCREEN_3_CS:" + String(SCREEN_3_CS));
-    Serial.println("SCREEN_4_CS:" + String(SCREEN_4_CS));
-    Serial.println("SCREEN_5_CS:" + String(SCREEN_5_CS));
+    Log.noticeln("ScreenManager initialized");
+    Log.noticeln("TFT_MOSI: %s", String(TFT_MOSI));
+    Log.noticeln("TFT_MISO: %s", String(TFT_MISO));
+    Log.noticeln("TFT_SCLK: %s", String(TFT_SCLK));
+    Log.noticeln("TFT_CS: %s", String(TFT_CS));
+    Log.noticeln("TFT_DC: %s", String(TFT_DC));
+    Log.noticeln("TFT_RST: %s", String(TFT_RST));
+    Log.noticeln("SCREEN_1_CS: %s", String(SCREEN_1_CS));
+    Log.noticeln("SCREEN_2_CS: %s", String(SCREEN_2_CS));
+    Log.noticeln("SCREEN_3_CS: %s", String(SCREEN_3_CS));
+    Log.noticeln("SCREEN_4_CS: %s", String(SCREEN_4_CS));
+    Log.noticeln("SCREEN_5_CS: %s", String(SCREEN_5_CS));
 
     instance = this;
 }
@@ -322,7 +323,7 @@ int16_t ScreenManager::drawLegacyChar(uint16_t uniCode, int32_t x, int32_t y, ui
 // Static function to be used in TJpgDec callback
 bool ScreenManager::tftOutput(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t *bitmap) {
     if (instance == nullptr) {
-        Serial.println("TFT_Output not possible, ScreenManager instance not initialized");
+        Log.noticeln("TFT_Output not possible, ScreenManager instance not initialized");
         return false;
     }
     uint8_t brightness = instance->getBrightness();
