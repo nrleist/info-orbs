@@ -4,6 +4,7 @@
 #include "Utils.h"
 #include "config_helper.h"
 #include "nvs_flash.h"
+#include <ArduinoLog.h>
 
 ConfigManager *ConfigManager::s_instance = nullptr;
 
@@ -24,30 +25,29 @@ static WiFiManagerParameter s_spanAdvancedStart(WEBPORTAL_PARAM_SPAN_ADVANCED_ST
 static WiFiManagerParameter s_spanEnd(WEBPORTAL_PARAM_SPAN_END);
 
 ConfigManager::ConfigManager(WiFiManager &wm) : m_wm(wm) {
-    Serial.println("Constructing ConfigManager");
+    Log.infoln("Constructing ConfigManager");
     if (!m_preferences.begin("config", false)) {
-        Serial.println("Failed to initialize NVS in ConfigManager.");
-        Serial.println("...erasing NVS");
+        Log.warningln("Failed to initialize NVS in ConfigManager... erasing NVS");
         nvs_flash_erase();
-        Serial.println("...initializing NVS");
+        Log.infoln("...initializing NVS");
         nvs_flash_init();
-        Serial.println("Retrying to init preferences...");
+        Log.infoln("Retrying to init preferences...");
         if (!m_preferences.begin("config", false)) {
-            Serial.println("...it didn't work. Giving up.");
+            Log.warningln("...it didn't work. Giving up.");
         } else {
-            Serial.println("...it worked!");
+            Log.infoln("...it worked!");
         }
     } else {
-        Serial.println("NVS initialized successfully in ConfigManager");
+        Log.infoln("NVS initialized successfully in ConfigManager");
         // Init pinMode for middle button (even if the buttons are not setup yet)
         pinMode(BUTTON_MIDDLE_PIN, BUTTON_MODE);
         if (digitalRead(BUTTON_MIDDLE_PIN) == Button::PRESSED_LEVEL) {
-            Serial.println("Middle button pressed -> Clearing preferences...");
+            Log.infoln("Middle button pressed -> Clearing preferences...");
             m_preferences.clear();
-            Serial.println("...done");
+            Log.infoln("...done");
         }
     }
-    Serial.println("ConfigManager initialized");
+    Log.infoln("ConfigManager initialized");
     s_instance = this;
 }
 
@@ -60,7 +60,7 @@ ConfigManager::~ConfigManager() {
 
 ConfigManager *ConfigManager::getInstance() {
     if (s_instance == nullptr) {
-        Serial.println("ERR in ConfigManager.getInstance(): not initialized");
+        Log.errorln("ConfigManager.getInstance(): not initialized");
     }
     return s_instance;
 }
@@ -73,10 +73,10 @@ void ConfigManager::setupWebPortal() {
     bool advancedOpen = false;
     for (auto &param : m_parameters) {
 #ifdef CM_DEBUG
-        Serial.printf("Adding WebPortal parameter: %s, %s\n", param.section, param.variableName);
+        Log.traceln("Adding WebPortal parameter: %s, %s", param.section, param.variableName);
 #endif
         if (strcmp(lastSection, param.section) != 0) {
-            Serial.printf("New config section: %s\n", param.section);
+            Log.infoln("New config section: %s", param.section);
             if (advancedOpen) {
                 // close advanced params span
                 m_wm.addParameter(&s_spanEnd);
@@ -120,18 +120,18 @@ void ConfigManager::setupWebPortal() {
     m_wm.setSaveParamsCallback([this]() {
         int count = m_wm.server->args();
 #ifdef CM_DEBUG
-        Serial.println("Variables saved in WebPortal");
+        Log.traceln("Variables saved in WebPortal");
         for (int i = 0; i < count; i++) {
-            Serial.printf("Arg %d: %s = %s\n", i, m_wm.server->argName(i).c_str(), m_wm.server->arg(i).c_str());
+            Log.traceln("Arg %d: %s = %s", i, m_wm.server->argName(i).c_str(), m_wm.server->arg(i).c_str());
         }
 #endif
         if (count > 0) {
             saveAllConfigs();
-            Serial.printf("%d config values saved.\n", count);
+            Log.infoln("%d config values saved.", count);
             // Restart to apply new config
             m_requiresRestart = true;
         } else {
-            Serial.println("No confg values to save found. Skipping.");
+            Log.infoln("No confg values to save found. Skipping.");
         }
     });
 }
@@ -149,7 +149,7 @@ std::string ConfigManager::makeKey(const char *section, const char *varName) {
 
 void ConfigManager::triggerChangeCallbacks(const char *section, const char *varName) {
 #ifdef CM_DEBUG
-    Serial.printf("triggerChangeCallbacks, c=%s, v=%s\n", section, varName);
+    Log.traceln("triggerChangeCallbacks, c=%s, v=%s", section, varName);
 #endif
     std::string key = makeKey(section, varName);
     if (varName[0] != '\0' && m_changeCallbacks.count(key)) {
@@ -173,7 +173,7 @@ void ConfigManager::addConfig(ParamType paramType, const char *section, const ch
     loadFromPreferences(*var);
 
 #ifdef CM_DEBUG
-    Serial.printf("%s loaded %d (@%p)\n", varName, *var, var);
+    Log.traceln("%s loaded %d (@%p)", varName, *var, var);
 #endif
 
     // Create parameter with additional arguments if needed
@@ -186,7 +186,7 @@ void ConfigManager::addConfig(ParamType paramType, const char *section, const ch
         saveToPreferences(*var);
 #ifdef CM_DEBUG
         // Debugging output
-        Serial.printf("%s saved %d (@%p)\n", varName, *var, var);
+        Log.traceln("%s saved %d (@%p)", varName, *var, var);
 #endif
     };
 
