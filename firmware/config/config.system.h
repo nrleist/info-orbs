@@ -53,18 +53,41 @@
     #define BUTTON_RIGHT_PIN 14
 #endif
 
-#define BUTTON_DEBOUNCE_TIME 35 // Debounce buttons for X ms
-#define BUTTON_MEDIUM_PRESS_TIME 500 // Medium press is registered after X ms
-#define BUTTON_LONG_PRESS_TIME 2000 // Long press is registered after X ms
+#ifndef BUTTON_DEBOUNCE_TIME
+    #define BUTTON_DEBOUNCE_TIME 35 // Debounce buttons for X ms
+#endif
 
-#define BUTTON_MODE INPUT_PULLDOWN
-#define BUSY_PIN 2
+#ifndef BUTTON_MEDIUM_PRESS_TIME
+    #define BUTTON_MEDIUM_PRESS_TIME 500 // Medium press is registered after X ms
+#endif
 
-#define NTP_SERVER "pool.ntp.org"
+#ifndef BUTTON_LONG_PRESS_TIME
+    #define BUTTON_LONG_PRESS_TIME 2000 // Long press is registered after X ms
+#endif
 
-#define SCREEN_SIZE 240
-#define TFT_WIDTH SCREEN_SIZE
-#define TFT_HEIGHT SCREEN_SIZE
+#ifndef BUTTON_MODE
+    #define BUTTON_MODE INPUT_PULLDOWN
+#endif
+
+#ifndef BUSY_PIN
+    #define BUSY_PIN 2
+#endif
+
+#ifndef NTP_SERVER
+    #define NTP_SERVER "pool.ntp.org"
+#endif
+
+#ifndef SCREEN_SIZE
+    #define SCREEN_SIZE 240
+#endif
+#ifndef TFT_WIDTH
+    #define TFT_WIDTH SCREEN_SIZE
+#endif
+#ifndef TFT_HEIGHT
+    #define TFT_HEIGHT SCREEN_SIZE
+#endif
+
+// Legacy fonts
 #define LOAD_GLCD
 #define LOAD_FONT2
 #define LOAD_FONT4
@@ -73,12 +96,25 @@
 #define LOAD_FONT8N
 #define LOAD_GFXFF
 #define SMOOTH_FONT
-#define SPI_FREQUENCY 27000000
 
-#define TIMEZONE_API_KEY "97R9WKDPBLIO"
-#define TIMEZONE_API_URL "http://api.timezonedb.com/v2.1/get-time-zone"
-#define WEATHER_API_KEY "XW2RDGD6XK432AF25BNK2A3C7"
+#ifndef SPI_FREQUENCY
+    #define SPI_FREQUENCY 27000000
+#endif
 
-#define MAX_RETRIES 3
+#ifndef TIMEZONE_API_KEY
+    #define TIMEZONE_API_KEY "97R9WKDPBLIO"
+#endif
+
+#ifndef TIMEZONE_API_URL
+    #define TIMEZONE_API_URL "http://api.timezonedb.com/v2.1/get-time-zone"
+#endif
+
+#ifndef WEATHER_API_KEY
+    #define WEATHER_API_KEY "XW2RDGD6XK432AF25BNK2A3C7"
+#endif
+
+#ifndef MAX_RETRIES
+    #define MAX_RETRIES 3
+#endif
 
 #endif
