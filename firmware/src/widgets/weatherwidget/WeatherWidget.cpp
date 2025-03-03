@@ -91,7 +91,8 @@ void WeatherWidget::update(bool force) {
 
 bool WeatherWidget::getWeatherData() {
     String weatherUnits = m_weatherUnits == 0 ? "metric" : "us";
-    String httpRequestAddress = String(WEATHER_API_URL) +
+    String httpRequestAddress = 
+    "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
                                 String(m_weatherLocation.c_str()) + "/next3days?key=" + weatherApiKey + "&unitGroup=" + weatherUnits +
                                 "&include=days,current&iconSet=icons1&lang=" + LOC_LANG;
 
