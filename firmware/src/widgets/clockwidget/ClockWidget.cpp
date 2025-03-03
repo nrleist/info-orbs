@@ -172,9 +172,11 @@ void ClockWidget::update(bool force) {
 void ClockWidget::changeFormat() {
     GlobalTime *time = GlobalTime::getInstance();
     m_format++;
-    if (m_format > 2) {
+    if (m_type == (int) ClockType::NORMAL) {
+        if (m_format > 2)
+            m_format = 0;
+    } else if (m_format > 1)
         m_format = 0;
-    }
     time->setFormat24Hour(m_format == CLOCK_FORMAT_24_HOUR);
     m_manager.clearAllScreens();
     update(true);
