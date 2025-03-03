@@ -27,25 +27,20 @@ When using the `ArduinoLog` library, the logging methods correspond to different
    - Corresponds to `Log.warning()`.
    - Example: `Log.warning("This is a warning");`
 
-5. **`LOG_LEVEL_INFO`**:
+5. **`LOG_LEVEL_INFO` and `LOG_LEVEL_NOTICE` **:
 
    - Informational messages, warnings, and errors.
-   - Corresponds to `Log.info()`.
+   - Corresponds to `Log.info()` and `Log.notice()`.
+   - Recommend to use `Log.ino()` as `Log.notice()` only kept for backward compatability
    - Example: `Log.info("This is an info message");`
 
-6. **`LOG_LEVEL_NOTICE`**:
-
-   - Notice messages, informational messages, warnings, and errors.
-   - Corresponds to `Log.notice()`.
-   - Example: `Log.notice("This is a notice");`
-
-7. **`LOG_LEVEL_TRACE`**:
+6. **`LOG_LEVEL_TRACE`**:
 
    - Detailed tracing information, notices, informational messages, warnings, and errors.
    - Corresponds to `Log.trace()`.
    - Example: `Log.trace("This is a trace message");`
 
-8. **`LOG_LEVEL_VERBOSE`**:
+7. **`LOG_LEVEL_VERBOSE`**:
    - Very detailed tracing information, traces, notices, informational messages, warnings, and errors.
    - Corresponds to `Log.verbose()`.
    - Example: `Log.verbose("This is a verbose message");`
@@ -55,7 +50,7 @@ When using the `ArduinoLog` library, the logging methods correspond to different
 You can set the log level globally in your `config.h` file. For example:
 
 ```cpp
-#define LOG_LEVEL LOG_LEVEL_INFO
+#define LOG_LEVEL LOG_LEVEL_TRACE
 ```
 
 To use logging in your code, include the following:
@@ -86,8 +81,7 @@ Log.warning("Battery level: %d%%, Status: %s", batteryLevel, status);
 ## General Guidance
 
 1. Opt for using `Log` instead of `Serial.print` where possible.
-2. Keep `INFO` log messages limited and concise to avoid cluttering the serial monitor with messages that may not be meaningful.
-3. Use `NOTICE` log messages for events that occur less frequently but are still important.
-4. Use `WARNING` log messages for unexpected occurrences during execution that may not cause immediate issues (e.g., "Only 4 stock symbols defined").
-5. Use `TRACE` log messages for debugging purposes, such as tracking execution flow or dumping JSON returned from an API call.
-6. Use `WARNING` for less critical errors, `ERROR` for more critical errors, and `FATAL` only for the most critical errors.
+2. Keep `INFO`, `NOTICE` log messages limited and concise to avoid cluttering the serial monitor with messages that may not be meaningful (`INFO` and `NOTICE` are synonymous).
+3. Use `WARNING` log messages for unexpected occurrences during execution that may not cause immediate issues (e.g., "Only 4 stock symbols defined").
+4. Use `TRACE` log messages for debugging purposes, such as tracking execution flow or dumping JSON returned from an API call.
+5. Use `WARNING` for less critical errors, `ERROR` for more critical errors, and `FATAL` only for the most critical errors.
