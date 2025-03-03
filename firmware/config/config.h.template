@@ -7,7 +7,7 @@
 #define TIMEZONE_API_LOCATION "America/Vancouver" // Use timezone from this list: https://timezonedb.com/time-zones
 #define ORB_ROTATION 0                            // 0 = Normal, 1 = 90 degrees CW, 2 = 180 degrees, 3 = 270 degrees CW
 #define WIDGET_CYCLE_DELAY 0                      // Automatically cycle widgets every X seconds, set to 0 to disable
-#define LOCALE EN                                 // Language selection for Month and Weekday - possible values are EN, DE, FR
+#define LANGUAGE LANG_EN                          // Language selection - possible values are LANG_EN, LANG_DE, LANG_FR
 
 // WIDGETS
 #define INCLUDE_WEATHER       // include WeatherWidget

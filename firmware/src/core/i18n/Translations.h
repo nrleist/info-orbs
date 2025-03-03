@@ -34,5 +34,8 @@ extern Translation t_temperatureUnit;
 extern TranslationMulti<2> t_temperatureUnits;
 extern Translation t_screenMode;
 extern TranslationMulti<2> t_screenModes;
+extern TranslationMulti<12> t_months;
+extern TranslationMulti<7> t_weekdays;
+extern Translation t_dayMonthFormat;
 
 #endif // TRANSLATIONS_H

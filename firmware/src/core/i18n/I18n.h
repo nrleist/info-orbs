@@ -15,6 +15,10 @@ enum Language {
 
 #define DEFAULT_LANGUAGE LANG_EN
 
+#ifndef LANGUAGE
+    #define LANGUAGE DEFAULT_LANGUAGE
+#endif
+
 // Define a custom type for translation arrays
 using Translation = const char *const[LANG_NUM];
 // Define a template for translation arrays with a fixed number of columns (LANG_NUM)
@@ -25,6 +29,7 @@ class I18n {
 public:
     static void setLanguageId(int langId);
     static String getLanguageString(int langId);
+    static String getLanguageString();
     static String *getAllLanguages();
 
     static const char *get(Translation &translations) {
