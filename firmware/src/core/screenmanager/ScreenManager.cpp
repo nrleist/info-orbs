@@ -323,7 +323,7 @@ int16_t ScreenManager::drawLegacyChar(uint16_t uniCode, int32_t x, int32_t y, ui
 // Static function to be used in TJpgDec callback
 bool ScreenManager::tftOutput(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t *bitmap) {
     if (instance == nullptr) {
-        Log.noticeln("TFT_Output not possible, ScreenManager instance not initialized");
+        Log.warningln("TFT_Output not possible, ScreenManager instance not initialized");
         return false;
     }
     uint8_t brightness = instance->getBrightness();
