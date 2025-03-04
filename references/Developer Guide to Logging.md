@@ -64,20 +64,20 @@ To use logging in your code, include the following:
 ##### (note: all of these methods have variants without the trailing 'ln' e.g. Log.info(). The difference being the ln variant adds a newline character (\n))
 
 ```cpp
-Log.infonl("This is an info message.");
-Log.warningnl("Warning: Device is overheating!");
-Log.errornl("Error: Sensor not found.");
-Log.fatalnl("Fatal: System crash imminent!");
-Log.infonl("Sensor value: " + String(sensorValue));
+Log.infoln("This is an info message.");
+Log.warningln("Warning: Device is overheating!");
+Log.errorln("Error: Sensor not found.");
+Log.fatalln("Fatal: System crash imminent!");
+Log.infoln("Sensor value: " + String(sensorValue));
 
-Log.infonl("Count: %d", count);
-Log.infonl("Status: %s, Value: %d", status.c_str(), value);
-Log.warningnl("Temperature: %.2f°C", temperature);
-Log.errornl("Error %d: %s", errorCode, errorMessage.c_str());
-Log.tracenl("Loop iteration: %d", loopCount);
+Log.infoln("Count: %d", count);
+Log.infoln("Status: %s, Value: %d", status.c_str(), value);
+Log.warningln("Temperature: %.2f°C", temperature);
+Log.errorln("Error %d: %s", errorCode, errorMessage.c_str());
+Log.traceln("Loop iteration: %d", loopCount);
 
-Log.infonl("Device: " + String(deviceName) + ", ID: %d", deviceId);
-Log.warningnl("Battery level: %d%%, Status: %s", batteryLevel, status.c_str());
+Log.infonln("Device: " + String(deviceName) + ", ID: %d", deviceId);
+Log.warninln("Battery level: %d%%, Status: %s", batteryLevel, status.c_str());
 ```
 
 Do NOT use Arduino Strings directly for %s, but to use .c_str(), like in Serial.printf()
