@@ -2,6 +2,7 @@
 #include "StockTranslations.h"
 #include "TaskFactory.h"
 #include <ArduinoJson.h>
+#include <ArduinoLog.h>
 #include <iomanip>
 
 StockWidget::StockWidget(ScreenManager &manager, ConfigManager &config) : Widget(manager, config) {
@@ -21,7 +22,7 @@ StockWidget::StockWidget(ScreenManager &manager, ConfigManager &config) : Widget
         m_stocks[m_stockCount] = stockModel;
         m_stockCount++;
         if (m_stockCount > MAX_STOCKS) {
-            Serial.println("MAX STOCKS UNABLE TO ADD MORE");
+            Log.warningln("MAX STOCKS UNABLE TO ADD MORE");
             break;
         }
     } while (symbol = strtok(nullptr, ","));
@@ -29,7 +30,7 @@ StockWidget::StockWidget(ScreenManager &manager, ConfigManager &config) : Widget
 
 void StockWidget::setup() {
     if (m_stockCount == 0) {
-        Serial.println("No stock tickers available");
+        Log.warningln("No stock tickers available");
         return;
     }
 }
@@ -87,13 +88,13 @@ void StockWidget::processResponse(StockDataModel &stock, int httpCode, const Str
                 stock.setTicker(doc["symbol"].as<String>());
                 stock.setCurrencySymbol(doc["currency"].as<String>());
             } else {
-                Serial.println("skipping invalid data for: " + stock.getSymbol());
+                Log.warningln("skipping invalid data for: %s", stock.getSymbol().c_str());
             }
         } else {
-            Serial.println("deserializeJson() failed");
+            Log.errorln("deserializeJson() failed");
         }
     } else {
-        Serial.printf("HTTP request failed, error: %d\n", httpCode);
+        Log.errorln("HTTP request failed, error: %d\n", httpCode);
     }
 }
 
@@ -107,7 +108,7 @@ void StockWidget::buttonPressed(uint8_t buttonId, ButtonState state) {
 }
 
 void StockWidget::displayStock(int8_t displayIndex, StockDataModel &stock, uint32_t backgroundColor, uint32_t textColor) {
-    Serial.println("displayStock - " + stock.getSymbol() + " ~ " + stock.getCurrentPrice());
+    Log.infoln("displayStock - %s ~ %s", stock.getSymbol().c_str(), stock.getCurrentPrice(2).c_str());
     if (stock.getCurrentPrice() == 0.0) {
         // There isn't any data to display yet
         return;
