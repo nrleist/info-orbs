@@ -102,8 +102,6 @@ bool NTPClient::forceUpdate() {
     timeout++;
   } while (cb == 0);
 
-  this->_lastUpdate = millis() - (10 * (timeout + 1)); // Account for delay in reading the time
-
   this->_udp->read(this->_packetBuffer, NTP_PACKET_SIZE);
 
   unsigned long highWord = word(this->_packetBuffer[40], this->_packetBuffer[41]);
@@ -112,6 +110,15 @@ bool NTPClient::forceUpdate() {
   // this is NTP time (seconds since Jan 1 1900):
   unsigned long secsSince1900 = highWord << 16 | lowWord;
 
+  // Fixed upstream bug
+  // See https://github.com/arduino-libraries/NTPClient/pull/211
+  // che - 20250304
+  if (secsSince1900 == 0) {
+    // Invalid response from NTP server -> ignore
+    return false;
+  }
+
+  this->_lastUpdate = millis() - (10 * (timeout + 1)); // Account for delay in reading the time
   this->_currentEpoc = secsSince1900 - SEVENZYYEARS;
 
   return true;  // return true after successful update
