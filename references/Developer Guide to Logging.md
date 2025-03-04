@@ -80,7 +80,7 @@ Log.infonln("Device: " + String(deviceName) + ", ID: %d", deviceId);
 Log.warninln("Battery level: %d%%, Status: %s", batteryLevel, status.c_str());
 ```
 
-Do NOT use Arduino Strings directly for %s, but to use .c_str(), like in Serial.printf()
+Do NOT use Arduino Strings directly for %s, but use .c_str(), like in Serial.printf()
 
 ## General Guidance
 
