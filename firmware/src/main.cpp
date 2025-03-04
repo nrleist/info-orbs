@@ -59,6 +59,9 @@ void setup() {
         Serial.read();
     }
 
+#ifdef LOG_TIMESTAMP
+    Log.setPrefix(MainHelper::printPrefix);
+#endif
     Log.begin(LOG_LEVEL, &Serial);
     Log.noticeln("🚀 Starting up...");
     Log.noticeln("PCB Version: %s", PCB_VERSION);

@@ -81,6 +81,8 @@ public:
     static void watchdogReset();
 
     static void updateBrightnessByTime(uint8_t hour24);
+
+    static void printPrefix(Print *_logOutput, int logLevel);
 };
 
 #endif
