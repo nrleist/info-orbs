@@ -108,7 +108,7 @@ void StockWidget::buttonPressed(uint8_t buttonId, ButtonState state) {
 }
 
 void StockWidget::displayStock(int8_t displayIndex, StockDataModel &stock, uint32_t backgroundColor, uint32_t textColor) {
-    Log.infoln("displayStock - %s ~ %d", stock.getSymbol().c_str(), stock.getCurrentPrice());
+    Log.infoln("displayStock - %s ~ %s", stock.getSymbol().c_str(), stock.getCurrentPrice(2).c_str());
     if (stock.getCurrentPrice() == 0.0) {
         // There isn't any data to display yet
         return;
