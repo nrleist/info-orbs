@@ -32,36 +32,30 @@ GlobalTime *GlobalTime::getInstance() {
 
 void GlobalTime::updateTime(bool force) {
     if (force || millis() - m_updateTimer > m_oneSecond) {
-        if (m_timeZoneOffset == -1 || (m_nextTimeZoneUpdate > 0 && m_unixEpoch > m_nextTimeZoneUpdate)) {
-            getTimeZoneOffsetFromAPI();
-        }
-        bool updated = m_timeClient->update();
-        m_unixEpoch = m_timeClient->getEpochTime();
-        if (updated) {
-            if (year(m_unixEpoch) < m_lowYearTest || year(m_unixEpoch) > m_highYearTest) {
-                Log.warningln("NTP updated but year is not in acceptable range, skipping update, trying again...");
-                m_timeClient->setUpdateInterval(3000); // try again in 3 seconds
-                return;
-            }
-            Log.noticeln("NTP updated successful - Year is: %d", year(m_unixEpoch));
-            m_timeClient->setUpdateInterval(m_updateInterval); // reset update interval
-        }
         m_updateTimer = millis();
-        m_minute = minute(m_unixEpoch);
-        if (m_format24hour) {
-            m_hour = hour(m_unixEpoch);
-        } else {
-            m_hour = hourFormat12(m_unixEpoch);
-        }
-        m_hour24 = hour(m_unixEpoch);
-        m_second = second(m_unixEpoch);
+        m_timeClient->update();
+        if (m_timeClient->isTimeSet()) {
+            // NTP time is valid
+            if (m_timeZoneOffset == -1 || (m_nextTimeZoneUpdate > 0 && m_unixEpoch > m_nextTimeZoneUpdate)) {
+                getTimeZoneOffsetFromAPI();
+            }
+            m_unixEpoch = m_timeClient->getEpochTime();
+            m_minute = minute(m_unixEpoch);
+            if (m_format24hour) {
+                m_hour = hour(m_unixEpoch);
+            } else {
+                m_hour = hourFormat12(m_unixEpoch);
+            }
+            m_hour24 = hour(m_unixEpoch);
+            m_second = second(m_unixEpoch);
 
-        m_day = day(m_unixEpoch);
-        m_month = month(m_unixEpoch);
-        m_monthName = i18n(t_months, m_month - 1);
-        m_year = year(m_unixEpoch);
-        m_weekday = i18n(t_weekdays, weekday(m_unixEpoch) - 1);
-        m_time = String(m_hour) + ":" + (m_minute < 10 ? "0" + String(m_minute) : String(m_minute));
+            m_day = day(m_unixEpoch);
+            m_month = month(m_unixEpoch);
+            m_monthName = i18n(t_months, m_month - 1);
+            m_year = year(m_unixEpoch);
+            m_weekday = i18n(t_weekdays, weekday(m_unixEpoch) - 1);
+            m_time = String(m_hour) + ":" + (m_minute < 10 ? "0" + String(m_minute) : String(m_minute));
+        }
     }
 }
 
