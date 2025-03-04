@@ -27,7 +27,7 @@ When using the `ArduinoLog` library, the logging methods correspond to different
    - Corresponds to `Log.warning()`.
    - Example: `Log.warning("This is a warning");`
 
-5. **`LOG_LEVEL_INFO` and `LOG_LEVEL_NOTICE` **:
+5. **`LOG_LEVEL_INFO` and `LOG_LEVEL_NOTICE`**:
 
    - Informational messages, warnings, and errors.
    - Corresponds to `Log.info()` and `Log.notice()`.
@@ -61,22 +61,26 @@ To use logging in your code, include the following:
 
 ### Examples
 
+##### (note: all of these methods have variants without the trailing 'ln' e.g. Log.info(). The difference being the ln variant adds a newline character (\n))
+
 ```cpp
-Log.info("This is an info message.");
-Log.warning("Warning: Device is overheating!");
-Log.error("Error: Sensor not found.");
-Log.fatal("Fatal: System crash imminent!");
-Log.info("Sensor value: " + String(sensorValue));
+Log.infonl("This is an info message.");
+Log.warningnl("Warning: Device is overheating!");
+Log.errornl("Error: Sensor not found.");
+Log.fatalnl("Fatal: System crash imminent!");
+Log.infonl("Sensor value: " + String(sensorValue));
 
-Log.info("Count: %d", count);
-Log.info("Status: %s, Value: %d", status, value);
-Log.warning("Temperature: %.2f°C", temperature);
-Log.error("Error %d: %s", errorCode, errorMessage);
-Log.trace("Loop iteration: %d", loopCount);
+Log.infonl("Count: %d", count);
+Log.infonl("Status: %s, Value: %d", status.c_str(), value);
+Log.warningnl("Temperature: %.2f°C", temperature);
+Log.errornl("Error %d: %s", errorCode, errorMessage.c_str());
+Log.tracenl("Loop iteration: %d", loopCount);
 
-Log.info("Device: " + String(deviceName) + ", ID: %d", deviceId);
-Log.warning("Battery level: %d%%, Status: %s", batteryLevel, status);
+Log.infonl("Device: " + String(deviceName) + ", ID: %d", deviceId);
+Log.warningnl("Battery level: %d%%, Status: %s", batteryLevel, status.c_str());
 ```
+
+Do NOT use Arduino Strings directly for %s, but to use .c_str(), like in Serial.printf()
 
 ## General Guidance
 
