@@ -99,8 +99,8 @@ void TaskManager::processAwaitingTasks() {
             // Serial.printf("TaskParams deleted: %d\n", taskParamsCount);
 
             Utils::setBusy(false);
+            Log.noticeln("✅ Release semaphore");
             xSemaphoreGive(taskSemaphore);
-            Log.noticeln("✅ Released semaphore");
             vTaskDelete(nullptr);
         },
         "TASK_EXEC",
