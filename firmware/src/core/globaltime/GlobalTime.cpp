@@ -1,6 +1,7 @@
 #include "GlobalTime.h"
 
 #include "ConfigManager.h"
+#include "Translations.h"
 #include "config_helper.h"
 #include <ArduinoJson.h>
 #include <ArduinoLog.h>
@@ -57,9 +58,9 @@ void GlobalTime::updateTime(bool force) {
 
         m_day = day(m_unixEpoch);
         m_month = month(m_unixEpoch);
-        m_monthName = LOC_MONTH[m_month - 1];
+        m_monthName = i18n(t_months, m_month - 1);
         m_year = year(m_unixEpoch);
-        m_weekday = LOC_WEEKDAY[(weekday(m_unixEpoch)) -1];
+        m_weekday = i18n(t_weekdays, weekday(m_unixEpoch) - 1);
         m_time = String(m_hour) + ":" + (m_minute < 10 ? "0" + String(m_minute) : String(m_minute));
     }
 }
@@ -131,7 +132,7 @@ String GlobalTime::getWeekday() {
 
 String GlobalTime::getDayAndMonth() {
 #ifdef WEATHER_UNITS_METRIC
-    String retVal = LOC_FORMAT_DAYMONTH;
+    String retVal = i18n(t_dayMonthFormat);
     retVal.replace("%d", String(m_day));
     retVal.replace("%B", m_monthName);
     return retVal;

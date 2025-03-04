@@ -91,9 +91,14 @@ void WeatherWidget::update(bool force) {
 
 bool WeatherWidget::getWeatherData() {
     String weatherUnits = m_weatherUnits == 0 ? "metric" : "us";
+    String lang = I18n::getLanguageString();
+    if (lang != "en" && lang != "de" && lang != "fr") {
+        // Language is not supported on visualcrossing -> use english
+        lang = "en";
+    }
     String httpRequestAddress = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
                                 String(m_weatherLocation.c_str()) + "/next3days?key=" + weatherApiKey + "&unitGroup=" + weatherUnits +
-                                "&include=days,current&iconSet=icons1&lang=" + LOC_LANG;
+                                "&include=days,current&iconSet=icons1&lang=" + lang;
 
     auto task = TaskFactory::createHttpGetTask(
         httpRequestAddress, [this](int httpCode, const String &response) { processResponse(httpCode, response); }, [this](int httpCode, String &response) { preProcessResponse(httpCode, response); });
@@ -329,7 +334,7 @@ void WeatherWidget::threeDayWeather(int displayIndex) {
         drawWeatherIcon(displayIndex, model.getDayIcon(i), x - 30, 40, 4);
         m_manager.drawCentreString(temps[i], x, 122, temperatureFontSize);
 
-        String shortDayName = LOC_WEEKDAY[weekday(m_time->getUnixEpoch() + (86400 * (i + 1))) - 1];
+        String shortDayName = i18n(t_weekdays, weekday(m_time->getUnixEpoch() + (86400 * (i + 1))) - 1);
         shortDayName.remove(3);
         m_manager.drawString(shortDayName, x, 154, fontSize, Align::MiddleCenter);
     }

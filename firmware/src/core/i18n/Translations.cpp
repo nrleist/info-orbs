@@ -179,3 +179,109 @@ constexpr TranslationMulti<2> t_screenModes = {
     {
         "Dark", // EN
     }};
+
+constexpr TranslationMulti<12> t_months = {
+    {
+        "January", // EN
+        "Januar", // DE
+        "Janvier", // FR
+    },
+    {
+        "February", // EN
+        "Februar", // DE
+        "Février", // FR
+    },
+    {
+        "March", // EN
+        "März", // DE
+        "Mars", // FR
+    },
+    {
+        "April", // EN
+        "April", // DE
+        "Avril", // FR
+    },
+    {
+        "May", // EN
+        "Mai", // DE
+        "Mai", // FR
+    },
+    {
+        "June", // EN
+        "Juni", // DE
+        "Juin", // FR
+    },
+    {
+        "July", // EN
+        "Juli", // DE
+        "Juillet", // FR
+    },
+    {
+        "August", // EN
+        "August", // DE
+        "Août", // FR
+    },
+    {
+        "September", // EN
+        "September", // DE
+        "Septembre", // FR
+    },
+    {
+        "October", // EN
+        "Oktober", // DE
+        "Octobre", // FR
+    },
+    {
+        "November", // EN
+        "November", // DE
+        "Novembre", // FR
+    },
+    {
+        "December", // EN
+        "Dezember", // DE
+        "Décembre", // FR
+    }};
+
+constexpr TranslationMulti<7> t_weekdays = {
+    {
+        "Sunday", // EN
+        "Sonntag", // DE
+        "Dimanche", // FR
+    },
+    {
+        "Monday", // EN
+        "Montag", // DE
+        "Lundi", // FR
+    },
+    {
+        "Tuesday", // EN
+        "Dienstag", // DE
+        "Mardi", // FR
+    },
+    {
+        "Wednesday", // EN
+        "Mittwoch", // DE
+        "Mercredi", // FR
+    },
+    {
+        "Thursday", // EN
+        "Donnerstag", // DE
+        "Jeudi", // FR
+    },
+    {
+        "Friday", // EN
+        "Freitag", // DE
+        "Vendredi", // FR
+    },
+    {
+        "Saturday", // EN
+        "Samstag", // DE
+        "Samedi", // FR
+    }};
+
+constexpr Translation t_dayMonthFormat = {
+    // in strftime format
+    "%d %B", // EN
+    "%d. %B", // DE
+    "%d %B", // FR
+};

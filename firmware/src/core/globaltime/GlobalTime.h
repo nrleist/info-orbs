@@ -6,28 +6,6 @@
 #include <NTPClient.h>
 #include <TimeLib.h>
 
-// Define locales
-#define EN 0
-#define DE 1
-#define FR 2
-
-#if LOCALE == DE // German
-const char LOC_MONTH[12][10] = {"Januar", "Februar", "Maerz", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"}; // Define german for month
-const char LOC_WEEKDAY[7][11] = {"Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"}; // Define german for weekday
-const String LOC_FORMAT_DAYMONTH = "%d. %B"; // in strftime format
-const String LOC_LANG = "de";
-#elif LOCALE == FR // French
-const char LOC_MONTH[12][10] = {"Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"}; // Define french for month
-const char LOC_WEEKDAY[7][11] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"}; // Define french for weekday
-const String LOC_FORMAT_DAYMONTH = "%d %B"; // in strftime format
-const String LOC_LANG = "fr";
-#else // English
-const char LOC_MONTH[12][10] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}; // Define english for month
-const char LOC_WEEKDAY[7][11] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}; // Define english for weekday
-const String LOC_FORMAT_DAYMONTH = "%d %B"; // in strftime format, this will be overriden if WEATHER_UNITS_METRIC is not set
-const String LOC_LANG = "en";
-#endif
-
 enum ClockFormat {
     CLOCK_FORMAT_24_HOUR = 0,
     CLOCK_FORMAT_12_HOUR = 1,
