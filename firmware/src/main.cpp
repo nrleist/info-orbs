@@ -8,7 +8,6 @@
 #include "webdatawidget/WebDataWidget.h"
 #include "wifiwidget/WifiWidget.h"
 #include <ArduinoLog.h>
-#include <TimeLib.h>
 
 TFT_eSPI tft = TFT_eSPI();
 
@@ -44,14 +43,6 @@ void addWidgets() {
 #endif
 }
 
-void printPrefix(Print *_logOutput, int logLevel) {
-    unsigned long now_ms = millis();
-    time_t now_s = now_ms / 1000;
-    char timestamp[20];
-    sprintf(timestamp, "%02d:%02d:%02d.%03d ", hour(now_s), minute(now_s), second(now_s), now_ms % 1000);
-    _logOutput->print(timestamp);
-}
-
 void setup() {
     // Initialize global resources
     initializeGlobalResources();
@@ -68,7 +59,9 @@ void setup() {
         Serial.read();
     }
 
-    Log.setPrefix(printPrefix);
+#ifdef LOG_TIMESTAMP
+    Log.setPrefix(MainHelper::printPrefix);
+#endif
     Log.begin(LOG_LEVEL, &Serial);
     Log.noticeln("🚀 Starting up...");
     Log.noticeln("PCB Version: %s", PCB_VERSION);

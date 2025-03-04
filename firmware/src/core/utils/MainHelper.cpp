@@ -5,6 +5,7 @@
 #include "icons.h"
 #include <ArduinoLog.h>
 #include <HTTPClient.h>
+#include <TimeLib.h>
 #include <esp_task_wdt.h>
 
 static Button buttonLeft;
@@ -509,4 +510,12 @@ void MainHelper::watchdogInit() {
 
 void MainHelper::watchdogReset() {
     esp_task_wdt_reset();
+}
+
+void MainHelper::printPrefix(Print *_logOutput, int logLevel) {
+    unsigned long now_ms = millis();
+    time_t now_s = now_ms / 1000;
+    char timestamp[20];
+    sprintf(timestamp, "%02d:%02d:%02d.%03d ", hour(now_s), minute(now_s), second(now_s), now_ms % 1000);
+    _logOutput->print(timestamp);
 }
