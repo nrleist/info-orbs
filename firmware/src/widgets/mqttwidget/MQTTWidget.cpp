@@ -125,7 +125,7 @@ void MQTTWidget::setup() {
 
 // Update method
 void MQTTWidget::update(bool force) {
-    //    Log.traceln("Inside update method - " + String(mqttClient.connected()));
+    //    Log.traceln("Inside update method - %s" + mqttClient.connected().c_str());
 
     if (!mqttClient.connected()) {
         reconnect();
@@ -205,7 +205,7 @@ void MQTTWidget::callback(char *topic, byte *payload, unsigned int length) {
                             if (fieldValue.is<JsonArray>()) {
                                 fieldValue = fieldValue[index]; // Access the array element by index
                             } else {
-                                Log.errorln("Error: Expected an array for %s", String(token));
+                                Log.errorln("Error: Expected an array for %s", token);
                                 return;
                             }
                         } else {
@@ -235,32 +235,32 @@ void MQTTWidget::callback(char *topic, byte *payload, unsigned int length) {
 
                             // Update the display only if the value has actually changed
                             it->second = extractedValue;
-                            Log.traceln("Parsed %s : %s", orb->jsonField, extractedValue);
+                            Log.traceln("Parsed %s : %s", orb->jsonField.c_str(), extractedValue.c_str());
 
                             // Redraw the orb with updated data
                             drawOrb(orb->orbid);
                         } else {
-                            Log.traceln("No change detected for field: %s", orb->jsonField);
+                            Log.traceln("No change detected for field: %s", orb->jsonField.c_str());
                         }
                     } else {
-                        Log.warningln("JSON field '%s' not found in payload.", orb->jsonField);
+                        Log.warningln("JSON field '%s' not found in payload.", orb->jsonField.c_str());
                         return;
                     }
                 } else {
                     // The orb does not expect a JSON field; use the entire payload
                     if (it->second != message) {
                         it->second = message;
-                        Log.traceln("Updated data for %s : %s", receivedTopic, message);
+                        Log.traceln("Updated data for %s : %s", receivedTopic.c_str(), message.c_str());
                         drawOrb(orb->orbid);
                     } else {
-                        Log.traceln("No change detected for topic: %s", receivedTopic);
+                        Log.traceln("No change detected for topic: %s", receivedTopic.c_str());
                     }
                 }
             } else {
-                Log.warningln("No orb configuration found for topic: %s", receivedTopic);
+                Log.warningln("No orb configuration found for topic: %s", receivedTopic.c_str());
             }
         } else {
-            Log.traceln("Received message for unknown topic: %s", receivedTopic);
+            Log.traceln("Received message for unknown topic: %s", receivedTopic.c_str());
         }
     }
 }
@@ -310,7 +310,7 @@ void MQTTWidget::handleSetupMessage(const String &message) {
         config.orbTextColor = getColorFromString(textColorStr);
 
         orbConfigs.push_back(config);
-        Log.infoln("Configured Orb: %s -> %s", String(config.orbid), config.orbdesc);
+        Log.infoln("Configured Orb: %d -> %s", config.orbid, config.orbdesc.c_str());
 
         // Initialize data map with empty strings
         orbDataMap[config.topicSrc] = "";
@@ -382,7 +382,7 @@ void MQTTWidget::reconnect() {
                 Log.warningln("Failed to subscribe to setup topic: %s", mqttSetupTopic.c_str());
             }
         } else {
-            Log.warningln("failed, rc=%s", String(mqttClient.state()));
+            Log.warningln("failed, rc=%d", mqttClient.state());
             Log.warningln("try again in 5 seconds");
         }
     }
@@ -405,7 +405,7 @@ void MQTTWidget::drawOrb(int orbid) {
     }
 
     if (orb == nullptr) {
-        Log.warningln("Orb not found for orbid: %s", String(orbid));
+        Log.warningln("Orb not found for orbid: %d", orbid);
         return;
     }
 
