@@ -109,8 +109,8 @@
     #define TIMEZONE_API_URL "http://api.timezonedb.com/v2.1/get-time-zone"
 #endif
 
-#ifndef WEATHER_API_KEY
-    #define WEATHER_API_KEY "XW2RDGD6XK432AF25BNK2A3C7"
+#ifndef WEATHER_VISUALCROSSING_API_KEY
+    #define WEATHER_VISUALCROSSING_API_KEY "XW2RDGD6XK432AF25BNK2A3C7"
 #endif
 
 #ifndef MAX_RETRIES
