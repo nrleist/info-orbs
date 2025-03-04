@@ -1,6 +1,7 @@
 #include "WifiWidget.h"
 #include "OrbsWiFiManager.h"
 #include "Utils.h"
+#include <ArduinoLog.h>
 #include <ESPmDNS.h>
 #include <WiFi.h>
 
@@ -60,6 +61,14 @@ void WifiWidget::setup() {
     m_wifiManager.setCleanConnect(true);
     m_wifiManager.setConnectRetries(5);
 
+    // Set hostname to InfoOrbs-<last 6 digits of MAC address> so it can be found on the network
+    String mac = WiFi.macAddress();
+    mac.replace(":", "");
+    String hostname = "InfoOrbs-" + mac.substring(mac.length() - 6);
+    m_wifiManager.setHostname(hostname);
+
+    Log.noticeln("Hostname: %s", hostname.c_str());
+
     // WiFiManager automatically connects using saved credentials...
     if (m_wifiManager.autoConnect(m_apssid.c_str())) {
         Serial.print("WifiManager connected.");
@@ -96,7 +105,7 @@ void WifiWidget::update(bool force) {
         m_wifiManager.startWebPortal();
 #ifdef INCLUDE_MDNS
         // Initialize mDNS
-        String mDNSname = m_apssid + "-" + WiFi.macAddress().substring(15);
+        String mDNSname = m_wifiManager.getWiFiHostname();
         if (!MDNS.begin(mDNSname)) {
             Serial.println("Error setting up MDNS responder!");
         } else {
