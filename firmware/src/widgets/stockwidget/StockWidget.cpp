@@ -88,7 +88,7 @@ void StockWidget::processResponse(StockDataModel &stock, int httpCode, const Str
                 stock.setTicker(doc["symbol"].as<String>());
                 stock.setCurrencySymbol(doc["currency"].as<String>());
             } else {
-                Log.warningln("skipping invalid data for: %s", stock.getSymbol());
+                Log.warningln("skipping invalid data for: %s", stock.getSymbol().c_str());
             }
         } else {
             Log.errorln("deserializeJson() failed");
