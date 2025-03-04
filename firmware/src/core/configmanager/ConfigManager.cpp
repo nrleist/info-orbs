@@ -131,7 +131,7 @@ void ConfigManager::setupWebPortal() {
             // Restart to apply new config
             m_requiresRestart = true;
         } else {
-            Log.infoln("No confg values to save found. Skipping.");
+            Log.infoln("No config values to save found. Skipping.");
         }
     });
 }
