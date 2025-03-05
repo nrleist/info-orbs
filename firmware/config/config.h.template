@@ -40,6 +40,12 @@
 #define WEATHER_UNITS_METRIC            // Comment this line out (or delete it) if you want imperial units for the weather
 #define HIGH_LOW_INTERVAL 0             // Switch between Highs and Lows on 3 day forecast in X seconds - set to 0 to disable
 
+//#define WEATHER_TEMPEST_FEED          // Uncomment this line to use the Tempest weather  
+//#define WEATHER_TEMPEST_STATION_ID "" // Set the station ID of your Tempest weather station
+//#define WEATHER_TEMPEST_STATION_NAME "" // Set the name of your Tempest weather station
+//#define WEATHER_TEMPEST_API_KEY ""    // Your Tempest Weather API key
+//#define TEMPEST_PROXY_URL ""          // Set the URL of your Tempest proxy server (if required)
+
 // STOCK TICKER CONFIGURATION
 #define STOCK_TICKER_LIST "BTC/USD,USD/CAD,XEQT,SPY,APC&country=Germany" // Choose 5 securities to track. You can track forex, crypto (symbol/USD) or stocks from any exchange (if one ticker is part of multiple exchanges you can add on "&country=Canada" to narrow down to your ticker)
 #define STOCK_CHANGE_FORMAT 0           //Show percent change (0) or price change (1)
