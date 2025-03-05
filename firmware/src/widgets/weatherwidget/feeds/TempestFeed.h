@@ -10,6 +10,12 @@
 #ifndef TEMPEST_PROXY_URL
     #define TEMPEST_PROXY_URL "https://tempestproxy.lzrk.net/proxy"
 #endif
+#ifndef WEATHER_TEMPEST_STATION_ID
+    #define WEATHER_TEMPEST_STATION_ID ""
+#endif
+#ifndef WEATHER_TEMPEST_STATION_NAME
+    #define WEATHER_TEMPEST_STATION_NAME ""
+#endif
 
 class TempestFeed : public WeatherFeed {
 public:
