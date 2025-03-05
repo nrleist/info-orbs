@@ -69,8 +69,6 @@ private:
 
     std::string m_weatherLocation = WEATHER_LOCATION;
 
-    // const String weatherApiKey = WEATHER_API_KEY;
-
     const int MODE_HIGHS = 0;
     const int MODE_LOWS = 1;
 

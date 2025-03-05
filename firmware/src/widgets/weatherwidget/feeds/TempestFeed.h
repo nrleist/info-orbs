@@ -5,22 +5,25 @@
 #include "../WeatherFeed.h"
 #include <ArduinoJson.h>
 #include <TaskManager.h>
+#include <string> // Include for std::string
 
 #ifndef TEMPEST_PROXY_URL
     #define TEMPEST_PROXY_URL "https://tempestproxy.infoorbs.com/proxy"
 #endif
+
 class TempestFeed : public WeatherFeed {
 public:
-    TempestFeed(const String &apiKey, const String &stationId, int units, const String &stationName);
+    TempestFeed(const String &apiKey, int units); // Remove stationId and stationName from constructor
     bool getWeatherData(WeatherDataModel &model) override;
+    void setupConfig(ConfigManager &config) override; // Implement setupConfig
     void processResponse(int httpCode, const String &response, WeatherDataModel &model);
     void preProcessResponse(int httpCode, String &response);
     String translateIcon(const std::string &icon);
 
 private:
     String apiKey;
-    String stationId;
-    String stationName;
+    std::string stationId; // Changed to std::string
+    std::string stationName; // Changed to std::string
     std::string m_proxyUrl = TEMPEST_PROXY_URL;
     int units;
 
@@ -29,8 +32,5 @@ private:
 #else
     int m_weatherUnits = 1;
 #endif
-
-    std::string m_weatherLocation;
 };
-
 #endif

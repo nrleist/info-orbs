@@ -18,13 +18,13 @@ WeatherWidget::WeatherWidget(ScreenManager &manager, ConfigManager &config) : Wi
     m_enabled = true; // Enabled by default
     m_weatherUnits = 0;
     m_config.addConfigBool("WeatherWidget", "weatherEnabled", &m_enabled, t_enableWidget);
-    config.addConfigString("WeatherWidget", "weatherLocation", &m_weatherLocation, 40, t_weatherLocation);
+    weatherFeed = createWeatherFeed();
+    weatherFeed->setupConfig(config); // allow feed to add its own config
     config.addConfigComboBox("WeatherWidget", "weatherUnits", &m_weatherUnits, t_temperatureUnits, t_temperatureUnit, true);
     config.addConfigComboBox("WeatherWidget", "weatherScrMode", &m_screenMode, t_screenModes, t_screenMode, true);
     config.addConfigInt("WeatherWidget", "weatherCycleHL", &m_switchinterval, t_weatherCycleHL, true);
-    Log.noticeln("WeatherWidget initialized, loc=%s, mode=%d", m_weatherLocation.c_str(), m_screenMode);
+    Log.noticeln("WeatherWidget initialized, mode=%d", m_screenMode);
     m_mode = MODE_HIGHS;
-    weatherFeed = createWeatherFeed();
 }
 
 WeatherWidget::~WeatherWidget() {
@@ -33,9 +33,9 @@ WeatherWidget::~WeatherWidget() {
 
 WeatherFeed *WeatherWidget::createWeatherFeed() {
 #ifdef WEATHER_TEMPEST_FEED
-    return new TempestFeed(WEATHER_TEMPEST_API_KEY, WEATHER_TEMPEST_STATION_ID, m_weatherUnits, WEATHER_TEMPEST_STATION_NAME);
+    return new TempestFeed(WEATHER_TEMPEST_API_KEY, m_weatherUnits);
 #else
-    return new VisualCrossingFeed(WEATHER_VISUALCROSSING_API_KEY, m_weatherLocation);
+    return new VisualCrossingFeed(WEATHER_VISUALCROSSING_API_KEY);
 #endif
 }
 

@@ -3,19 +3,36 @@
 #include "GlobalTime.h"
 #include "TaskFactory.h"
 #include "config_helper.h"
-#include <unordered_map>
 
-TempestFeed::TempestFeed(const String &apiKey, const String &stationId, int units, const String &stationName)
-    : apiKey(apiKey), stationId(stationId), units(units), stationName(stationName) {}
+TempestFeed::TempestFeed(const String &apiKey, int units)
+    : apiKey(apiKey), units(units),
+      stationId(WEATHER_TEMPEST_STATION_ID), // Initialize with default station ID
+      stationName(WEATHER_TEMPEST_STATION_NAME) {} // Initialize with default station name
+
+void TempestFeed::setupConfig(ConfigManager &config) {
+    // Define the configuration for stationId and stationName
+    config.addConfigString("WeatherWidget", "tempestStatId", &stationId, 10, t_tempestStationId);
+    config.addConfigString("WeatherWidget", "tempestStatName", &stationName, 15, t_tempestStationName);
+
+    // Debug logging
+    Log.traceln("TempestFeed: stationId=%s (default=%s)", stationId.c_str(), WEATHER_TEMPEST_STATION_ID);
+    Log.traceln("TempestFeed: stationName=%s (default=%s)", stationName.c_str(), WEATHER_TEMPEST_STATION_NAME);
+}
 
 bool TempestFeed::getWeatherData(WeatherDataModel &model) {
-    String weatherUnits = m_weatherUnits == 0 ? "metric" : "us";
+    // Debug logging
+    Log.noticeln("TempestFeed: Fetching weather data for stationId=%s, stationName=%s", stationId.c_str(), stationName.c_str());
+
     String lang = I18n::getLanguageString();
 
-    String tempUnits = units == 0 ? "c" : "f";
+    String tempUnits = m_weatherUnits == 0 ? "c" : "f";
 
-    String httpRequestAddress = String(m_proxyUrl.c_str()) + "?station_id=" + stationId +
+    // Use stationId from config
+    String httpRequestAddress = String(m_proxyUrl.c_str()) + "?station_id=" + String(stationId.c_str()) +
                                 "&units_temp=" + tempUnits + "&units_wind=mph&units_pressure=mb&units_precip=in&units_distance=mi&api_key=" + apiKey;
+
+    // Debug logging
+    Log.noticeln("TempestFeed: HTTP request address=%s", httpRequestAddress.c_str());
 
     auto task = TaskFactory::createHttpGetTask(
         httpRequestAddress, [this, &model](int httpCode, const String &response) { processResponse(httpCode, response, model); }, [this](int httpCode, String &response) { preProcessResponse(httpCode, response); });
@@ -32,9 +49,9 @@ bool TempestFeed::getWeatherData(WeatherDataModel &model) {
 
     return success;
 }
+
 void TempestFeed::preProcessResponse(int httpCode, String &response) {
     if (httpCode > 0) {
-
         JsonDocument filter;
         filter["current_conditions"]["air_temperature"] = true;
         filter["current_conditions"]["icon"] = true;
@@ -61,7 +78,7 @@ void TempestFeed::processResponse(int httpCode, const String &response, WeatherD
         DeserializationError error = deserializeJson(doc, response);
 
         if (!error) {
-            model.setCityName(stationName);
+            model.setCityName(String(stationName.c_str())); // Convert std::string to String
             model.setCurrentTemperature(doc["current_conditions"]["air_temperature"].as<float>());
             model.setCurrentText(doc["forecast"]["daily"][0]["conditions"].as<String>());
 
@@ -81,6 +98,7 @@ void TempestFeed::processResponse(int httpCode, const String &response, WeatherD
         Log.errorln("HTTP request failed, error code: %d\n", httpCode);
     }
 }
+
 String TempestFeed::translateIcon(const std::string &icon) {
     // Define the mapping of input strings to simplified weather icons
     static const std::unordered_map<std::string, std::string> iconMapping = {

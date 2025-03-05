@@ -4,8 +4,13 @@
 #include "TaskFactory.h"
 #include "config_helper.h"
 
-VisualCrossingFeed::VisualCrossingFeed(const String &apiKey, const std::string &location)
-    : apiKey(apiKey), m_weatherLocation(location) {}
+VisualCrossingFeed::VisualCrossingFeed(const String &apiKey)
+    : apiKey(apiKey) {}
+
+void VisualCrossingFeed::setupConfig(ConfigManager &config) {
+
+    config.addConfigString("WeatherWidget", "weatherLocation", &m_weatherLocation, 40, t_weatherLocation);
+}
 
 bool VisualCrossingFeed::getWeatherData(WeatherDataModel &model) {
     String weatherUnits = m_weatherUnits == 0 ? "metric" : "us";
@@ -14,6 +19,7 @@ bool VisualCrossingFeed::getWeatherData(WeatherDataModel &model) {
         // Language is not supported on visualcrossing -> use english
         lang = "en";
     }
+
     String httpRequestAddress = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
                                 String(m_weatherLocation.c_str()) + "/next3days?key=" + apiKey + "&unitGroup=" + weatherUnits +
                                 "&include=days,current&iconSet=icons1&lang=" + lang;
@@ -33,6 +39,7 @@ bool VisualCrossingFeed::getWeatherData(WeatherDataModel &model) {
 
     return success;
 }
+
 void VisualCrossingFeed::preProcessResponse(int httpCode, String &response) {
     if (httpCode > 0) {
         JsonDocument filter;
