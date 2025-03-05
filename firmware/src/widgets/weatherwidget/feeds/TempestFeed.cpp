@@ -5,30 +5,28 @@
 #include "config_helper.h"
 
 TempestFeed::TempestFeed(const String &apiKey, int units)
-    : apiKey(apiKey), units(units),
-      stationId(WEATHER_TEMPEST_STATION_ID), // Initialize with default station ID
-      stationName(WEATHER_TEMPEST_STATION_NAME) {} // Initialize with default station name
+    : apiKey(apiKey), m_units(units) {}
 
 void TempestFeed::setupConfig(ConfigManager &config) {
     // Define the configuration for stationId and stationName
-    config.addConfigString("WeatherWidget", "tempestStatId", &stationId, 10, t_tempestStationId);
-    config.addConfigString("WeatherWidget", "tempestStatName", &stationName, 15, t_tempestStationName);
+    config.addConfigString("WeatherWidget", "tempestStatId", &m_stationId, 10, t_tempestStationId);
+    config.addConfigString("WeatherWidget", "tempestStatName", &m_stationName, 15, t_tempestStationName);
 
     // Debug logging
-    Log.traceln("TempestFeed: stationId=%s (default=%s)", stationId.c_str(), WEATHER_TEMPEST_STATION_ID);
-    Log.traceln("TempestFeed: stationName=%s (default=%s)", stationName.c_str(), WEATHER_TEMPEST_STATION_NAME);
+    // Log.traceln("TempestFeed: stationId=%s (default=%s)", m_stationId.c_str(), WEATHER_TEMPEST_STATION_ID);
+    // Log.traceln("TempestFeed: stationName=%s (default=%s)", m_stationName.c_str(), WEATHER_TEMPEST_STATION_NAME);
 }
 
 bool TempestFeed::getWeatherData(WeatherDataModel &model) {
     // Debug logging
-    Log.noticeln("TempestFeed: Fetching weather data for stationId=%s, stationName=%s", stationId.c_str(), stationName.c_str());
+    Log.noticeln("TempestFeed: Fetching weather data for stationId=%s, stationName=%s", m_stationId.c_str(), m_stationName.c_str());
 
     String lang = I18n::getLanguageString();
 
     String tempUnits = m_weatherUnits == 0 ? "c" : "f";
 
     // Use stationId from config
-    String httpRequestAddress = String(m_proxyUrl.c_str()) + "?station_id=" + String(stationId.c_str()) +
+    String httpRequestAddress = String(m_proxyUrl.c_str()) + "?station_id=" + String(m_stationId.c_str()) +
                                 "&units_temp=" + tempUnits + "&units_wind=mph&units_pressure=mb&units_precip=in&units_distance=mi&api_key=" + apiKey;
 
     // Debug logging
@@ -78,7 +76,7 @@ void TempestFeed::processResponse(int httpCode, const String &response, WeatherD
         DeserializationError error = deserializeJson(doc, response);
 
         if (!error) {
-            model.setCityName(String(stationName.c_str())); // Convert std::string to String
+            model.setCityName(String(m_stationName.c_str())); // Convert std::string to String
             model.setCurrentTemperature(doc["current_conditions"]["air_temperature"].as<float>());
             model.setCurrentText(doc["forecast"]["daily"][0]["conditions"].as<String>());
 

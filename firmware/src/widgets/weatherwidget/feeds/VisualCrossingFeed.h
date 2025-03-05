@@ -16,13 +16,20 @@ public:
 
 private:
     String apiKey;
-    std::string m_weatherLocation;
+    // std::string m_weatherLocation;
 
 #ifdef WEATHER_UNITS_METRIC
     int m_weatherUnits = 0;
 #else
     int m_weatherUnits = 1;
 #endif
+
+// This is a hack to support old config.h files that have WEATHER_LOCAION instead of LOCATION.
+#ifndef WEATHER_LOCATION
+    #define WEATHER_LOCATION WEATHER_LOCAION
+#endif
+
+    std::string m_weatherLocation = WEATHER_LOCATION;
 };
 
 #endif

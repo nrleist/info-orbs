@@ -62,13 +62,6 @@ private:
     WeatherDataModel model;
     WeatherFeed *weatherFeed;
 
-// This is a hack to support old config.h files that have WEATHER_LOCAION instead of LOCATION.
-#ifndef WEATHER_LOCATION
-    #define WEATHER_LOCATION WEATHER_LOCAION
-#endif
-
-    std::string m_weatherLocation = WEATHER_LOCATION;
-
     const int MODE_HIGHS = 0;
     const int MODE_LOWS = 1;
 

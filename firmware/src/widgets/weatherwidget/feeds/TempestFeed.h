@@ -22,10 +22,11 @@ public:
 
 private:
     String apiKey;
-    std::string stationId; // Changed to std::string
-    std::string stationName; // Changed to std::string
+    std::string m_stationId = WEATHER_TEMPEST_STATION_ID;
+    std::string m_stationName = WEATHER_TEMPEST_STATION_NAME;
     std::string m_proxyUrl = TEMPEST_PROXY_URL;
-    int units;
+
+    int m_units;
 
 #ifdef WEATHER_UNITS_METRIC
     int m_weatherUnits = 0;
