@@ -99,7 +99,7 @@ void WifiWidget::update(bool force) {
         m_isConnected = true;
         m_connectionString = "Connected";
         m_ipaddress = WiFi.localIP().toString();
-        Log.infoln("IP address: %s", m_ipaddress);
+        Log.infoln("IP address: %s", m_ipaddress.c_str());
         // Start the WebPortal
         m_wifiManager.startWebPortal();
 #ifdef INCLUDE_MDNS
