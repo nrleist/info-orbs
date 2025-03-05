@@ -8,7 +8,7 @@
 #include <string> // Include for std::string
 
 #ifndef TEMPEST_PROXY_URL
-    #define TEMPEST_PROXY_URL "https://tempestproxy.infoorbs.com/proxy"
+    #define TEMPEST_PROXY_URL "https://tempestproxy.lzrk.net/proxy"
 #endif
 
 class TempestFeed : public WeatherFeed {
