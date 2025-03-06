@@ -105,8 +105,14 @@
     #define TIMEZONE_API_KEY "97R9WKDPBLIO"
 #endif
 
-#ifndef TIMEZONE_API_URL
-    #define TIMEZONE_API_URL "http://api.timezonedb.com/v2.1/get-time-zone"
+#ifndef TIMEZONE_API
+    #ifndef TIMEZONE_API_URL
+        #define TIMEZONE_API_URL "http://api.timezonedb.com/v2.1/get-time-zone"
+    #endif
+#else
+    #ifndef TIMEZONE_API_URL
+        #define TIMEZONE_API_URL "https://timeapi.io/api/timezone/zone"
+    #endif
 #endif
 
 #ifndef WEATHER_API_KEY
