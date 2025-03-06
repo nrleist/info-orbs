@@ -35,12 +35,15 @@ private:
     int getClockStamp();
     void configureColors();
     WeatherFeed *createWeatherFeed();
-    // void preProcessResponse(int httpCode, String &response);
-    // void processResponse(int httpCode, const String &response);
 
     GlobalTime *m_time;
     int8_t m_mode;
-    int m_weatherUnits;
+
+#ifdef WEATHER_UNITS_METRIC
+    int m_weatherUnits = 0;
+#else
+    int m_weatherUnits = 1;
+#endif
 
 #ifdef WEATHER_SCREEN_MODE
     int m_screenMode = WEATHER_SCREEN_MODE;

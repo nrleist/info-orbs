@@ -8,7 +8,7 @@
 
 class VisualCrossingFeed : public WeatherFeed {
 public:
-    VisualCrossingFeed(const String &apiKey);
+    VisualCrossingFeed(const String &apiKey, int units);
     bool getWeatherData(WeatherDataModel &model) override;
     void setupConfig(ConfigManager &config) override;
     void processResponse(int httpCode, const String &response, WeatherDataModel &model);
@@ -16,13 +16,6 @@ public:
 
 private:
     String apiKey;
-    // std::string m_weatherLocation;
-
-#ifdef WEATHER_UNITS_METRIC
-    int m_weatherUnits = 0;
-#else
-    int m_weatherUnits = 1;
-#endif
 
 // This is a hack to support old config.h files that have WEATHER_LOCAION instead of LOCATION.
 #ifndef WEATHER_LOCATION
@@ -30,6 +23,7 @@ private:
 #endif
 
     std::string m_weatherLocation = WEATHER_LOCATION;
+    int m_units;
 };
 
 #endif

@@ -4,8 +4,8 @@
 #include "TaskFactory.h"
 #include "config_helper.h"
 
-VisualCrossingFeed::VisualCrossingFeed(const String &apiKey)
-    : apiKey(apiKey) {}
+VisualCrossingFeed::VisualCrossingFeed(const String &apiKey, int units)
+    : apiKey(apiKey), m_units(units) {}
 
 void VisualCrossingFeed::setupConfig(ConfigManager &config) {
 
@@ -13,7 +13,9 @@ void VisualCrossingFeed::setupConfig(ConfigManager &config) {
 }
 
 bool VisualCrossingFeed::getWeatherData(WeatherDataModel &model) {
-    String weatherUnits = m_weatherUnits == 0 ? "metric" : "us";
+
+    String tempUnits = m_units == 0 ? "metric" : "us";
+
     String lang = I18n::getLanguageString();
     if (lang != "en" && lang != "de" && lang != "fr") {
         // Language is not supported on visualcrossing -> use english
@@ -21,7 +23,7 @@ bool VisualCrossingFeed::getWeatherData(WeatherDataModel &model) {
     }
 
     String httpRequestAddress = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
-                                String(m_weatherLocation.c_str()) + "/next3days?key=" + apiKey + "&unitGroup=" + weatherUnits +
+                                String(m_weatherLocation.c_str()) + "/next3days?key=" + apiKey + "&unitGroup=" + tempUnits +
                                 "&include=days,current&iconSet=icons1&lang=" + lang;
 
     auto task = TaskFactory::createHttpGetTask(

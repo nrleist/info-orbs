@@ -19,9 +19,9 @@
 
 class TempestFeed : public WeatherFeed {
 public:
-    TempestFeed(const String &apiKey, int units); // Remove stationId and stationName from constructor
+    TempestFeed(const String &apiKey, int units);
     bool getWeatherData(WeatherDataModel &model) override;
-    void setupConfig(ConfigManager &config) override; // Implement setupConfig
+    void setupConfig(ConfigManager &config) override;
     void processResponse(int httpCode, const String &response, WeatherDataModel &model);
     void preProcessResponse(int httpCode, String &response);
     String translateIcon(const std::string &icon);
@@ -33,11 +33,5 @@ private:
     std::string m_proxyUrl = TEMPEST_PROXY_URL;
 
     int m_units;
-
-#ifdef WEATHER_UNITS_METRIC
-    int m_weatherUnits = 0;
-#else
-    int m_weatherUnits = 1;
-#endif
 };
 #endif

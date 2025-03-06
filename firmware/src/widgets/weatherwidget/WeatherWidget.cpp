@@ -32,10 +32,13 @@ WeatherWidget::~WeatherWidget() {
 }
 
 WeatherFeed *WeatherWidget::createWeatherFeed() {
+
+    int weatherUnits = m_config.getConfigInt("weatherUnits", m_weatherUnits);
+
 #ifdef WEATHER_TEMPEST_FEED
-    return new TempestFeed(WEATHER_TEMPEST_API_KEY, m_weatherUnits);
+    return new TempestFeed(WEATHER_TEMPEST_API_KEY, weatherUnits);
 #else
-    return new VisualCrossingFeed(WEATHER_VISUALCROSSING_API_KEY);
+    return new VisualCrossingFeed(WEATHER_VISUALCROSSING_API_KEY, weatherUnits);
 #endif
 }
 

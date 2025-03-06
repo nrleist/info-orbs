@@ -11,26 +11,18 @@ void TempestFeed::setupConfig(ConfigManager &config) {
     // Define the configuration for stationId and stationName
     config.addConfigString("WeatherWidget", "tempestStatId", &m_stationId, 10, t_tempestStationId);
     config.addConfigString("WeatherWidget", "tempestStatName", &m_stationName, 15, t_tempestStationName);
-
-    // Debug logging
-    // Log.traceln("TempestFeed: stationId=%s (default=%s)", m_stationId.c_str(), WEATHER_TEMPEST_STATION_ID);
-    // Log.traceln("TempestFeed: stationName=%s (default=%s)", m_stationName.c_str(), WEATHER_TEMPEST_STATION_NAME);
 }
 
 bool TempestFeed::getWeatherData(WeatherDataModel &model) {
-    // Debug logging
-    Log.noticeln("TempestFeed: Fetching weather data for stationId=%s, stationName=%s", m_stationId.c_str(), m_stationName.c_str());
+
+    Log.traceln("TempestFeed: Fetching weather data for stationId=%s, stationName=%s", m_stationId.c_str(), m_stationName.c_str());
 
     String lang = I18n::getLanguageString();
 
-    String tempUnits = m_weatherUnits == 0 ? "c" : "f";
+    String tempUnits = m_units == 0 ? "c" : "f";
 
-    // Use stationId from config
     String httpRequestAddress = String(m_proxyUrl.c_str()) + "?station_id=" + String(m_stationId.c_str()) +
                                 "&units_temp=" + tempUnits + "&units_wind=mph&units_pressure=mb&units_precip=in&units_distance=mi&api_key=" + apiKey;
-
-    // Debug logging
-    Log.noticeln("TempestFeed: HTTP request address=%s", httpRequestAddress.c_str());
 
     auto task = TaskFactory::createHttpGetTask(
         httpRequestAddress, [this, &model](int httpCode, const String &response) { processResponse(httpCode, response, model); }, [this](int httpCode, String &response) { preProcessResponse(httpCode, response); });
