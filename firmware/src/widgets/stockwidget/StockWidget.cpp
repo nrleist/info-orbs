@@ -4,7 +4,6 @@
 #include <ArduinoJson.h>
 #include <ArduinoLog.h>
 #include <iomanip>
-#include <ArduinoLog.h>
 
 StockWidget::StockWidget(ScreenManager &manager, ConfigManager &config) : Widget(manager, config) {
     m_enabled = true; // Enabled by default
@@ -28,7 +27,7 @@ StockWidget::StockWidget(ScreenManager &manager, ConfigManager &config) : Widget
         m_stocks[m_stockCount] = stockModel;
         m_stockCount++;
     } while (symbol = strtok(nullptr, ","));
-    m_pageCount = 1 + ((m_stockCount-1) / NUM_SCREENS); // int division round up
+    m_pageCount = 1 + ((m_stockCount - 1) / NUM_SCREENS); // int division round up
     Log.infoln("StockWidget initialized");
     Log.traceln("StockWidget Pages: %d across %d symbools.", m_pageCount, m_stockCount);
 }
@@ -43,14 +42,14 @@ void StockWidget::setup() {
 
 void StockWidget::draw(bool force) {
     m_manager.setFont(DEFAULT_FONT);
-    for (int8_t i = m_page*NUM_SCREENS; i <(m_page+1)*NUM_SCREENS; i++) {
+    for (int8_t i = m_page * NUM_SCREENS; i < (m_page + 1) * NUM_SCREENS; i++) {
         if (!m_stocks[i].isInitialized() && !m_stocks[i].getSymbol().isEmpty() && m_stocks[i].getTicker().isEmpty()) {
-            m_manager.selectScreen(i%NUM_SCREENS);
-            m_manager.setFontColor(TFT_WHITE,TFT_BLACK);
+            m_manager.selectScreen(i % NUM_SCREENS);
+            m_manager.setFontColor(TFT_WHITE, TFT_BLACK);
             m_manager.drawCentreString(I18n::get(t_loadingData), ScreenCenterX, ScreenCenterY, 16);
-        } else if ((m_stocks[i].isChanged() || force) && !m_stocks[i].getSymbol().isEmpty())  {
+        } else if ((m_stocks[i].isChanged() || force) && !m_stocks[i].getSymbol().isEmpty()) {
             Log.infoln("StockWidget::draw - %s", m_stocks[i].getSymbol());
-            displayStock(i%NUM_SCREENS, m_stocks[i], TFT_WHITE, TFT_BLACK);
+            displayStock(i % NUM_SCREENS, m_stocks[i], TFT_WHITE, TFT_BLACK);
             m_stocks[i].setChangedStatus(false);
             m_stocks[i].setInitializationStatus(true);
         }
