@@ -7,7 +7,7 @@
 #include "weatherwidget/WeatherWidget.h"
 #include "webdatawidget/WebDataWidget.h"
 #include "wifiwidget/WifiWidget.h"
-#include "Matrixwidget/MatrixWidget.h"
+#include "matrixwidget/MatrixWidget.h"
 #include <ArduinoLog.h>
 
 TFT_eSPI tft = TFT_eSPI();
