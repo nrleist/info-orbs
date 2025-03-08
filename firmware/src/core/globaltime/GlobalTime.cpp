@@ -179,3 +179,7 @@ bool GlobalTime::setFormat24Hour(bool format24hour) {
     m_format24hour = format24hour;
     return m_format24hour;
 }
+
+int GlobalTime::getTimeZoneOffset() {
+    return m_timeZoneOffset;
+}

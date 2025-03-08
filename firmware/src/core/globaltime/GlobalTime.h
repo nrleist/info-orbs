@@ -45,6 +45,7 @@ public:
     bool isPM();
     bool getFormat24Hour();
     bool setFormat24Hour(bool format24hour);
+    int getTimeZoneOffset();
 
 private:
     GlobalTime();
