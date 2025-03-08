@@ -7,6 +7,7 @@
 #include "weatherwidget/WeatherWidget.h"
 #include "webdatawidget/WebDataWidget.h"
 #include "wifiwidget/WifiWidget.h"
+#include "MatrixWidget/MatrixWidget.h"
 #include <ArduinoLog.h>
 
 TFT_eSPI tft = TFT_eSPI();
@@ -40,6 +41,9 @@ void addWidgets() {
 #endif
 #ifdef INCLUDE_MQTT
     widgetSet->add(new MQTTWidget(*sm, *config));
+#endif
+#ifdef INCLUDE_MATRIXSCREEN
+    widgetSet->add(new MatrixWidget(*sm, *config));
 #endif
 }
 
