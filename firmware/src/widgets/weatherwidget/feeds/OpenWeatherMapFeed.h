@@ -9,7 +9,15 @@
 #ifndef WEATHER_OPENWEATHERMAP_API_URL
     #define WEATHER_OPENWEATHERMAP_API_URL "https://api.openweathermap.org/data/3.0/onecall"
 #endif
-
+#ifndef WEATHER_OPENWEATHERMAP_LAT
+    #define WEATHER_OPENWEATHERMAP_LAT 0
+#endif
+#ifndef WEATHER_OPENWEATHERMAP_LON
+    #define WEATHER_OPENWEATHERMAP_LON 0
+#endif
+#ifndef WEATHER_OPENWEATHERMAP_NAME
+    #define WEATHER_OPENWEATHERMAP_NAME ""
+#endif
 class OpenWeatherMapFeed : public WeatherFeed {
 public:
     OpenWeatherMapFeed(const String &apiKey, int units);
