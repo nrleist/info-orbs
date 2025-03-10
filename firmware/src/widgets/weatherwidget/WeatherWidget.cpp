@@ -10,6 +10,7 @@
 
 #include "WeatherWidget.h"
 #include "WeatherTranslations.h"
+#include "feeds/OpenWeatherMapFeed.h" // Add this line
 #include "icons.h"
 #include <ArduinoJson.h>
 #include <ArduinoLog.h>
@@ -35,7 +36,9 @@ WeatherFeed *WeatherWidget::createWeatherFeed() {
 
     int weatherUnits = m_config.getConfigInt("weatherUnits", m_weatherUnits);
 
-#ifdef WEATHER_TEMPEST_FEED
+#ifdef WEATHER_OPENWEATHERMAP_FEED
+    return new OpenWeatherMapFeed(WEATHER_OPENWEATHERMAP_API_KEY, weatherUnits);
+#elif defined(WEATHER_TEMPEST_FEED)
     return new TempestFeed(WEATHER_TEMPEST_API_KEY, weatherUnits);
 #else
     return new VisualCrossingFeed(WEATHER_VISUALCROSSING_API_KEY, weatherUnits);

@@ -20,3 +20,15 @@ constexpr Translation t_tempestStationId = {
 constexpr Translation t_tempestStationName = {
     "Tempest Station Name", // EN
 };
+
+constexpr Translation t_openWeatherLat = {
+    "OpenWeather Latitude", // EN
+};
+
+constexpr Translation t_openWeatherLong = {
+    "OpenWeather Longitude", // EN
+};
+
+constexpr Translation t_openWeatherName = {
+    "OpenWeather Name", // EN
+};
