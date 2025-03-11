@@ -22,7 +22,7 @@ bool VisualCrossingFeed::getWeatherData(WeatherDataModel &model) {
         lang = "en";
     }
 
-    String httpRequestAddress = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
+    String httpRequestAddress = String(WEATHER_VISUALCROSSING_API_URL) +
                                 String(m_weatherLocation.c_str()) + "/next3days?key=" + apiKey + "&unitGroup=" + tempUnits +
                                 "&include=days,current&iconSet=icons1&lang=" + lang;
 

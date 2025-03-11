@@ -6,6 +6,10 @@
 #include <ArduinoJson.h>
 #include <TaskManager.h>
 
+#ifndef WEATHER_VISUALCROSSING_API_URL
+    #define WEATHER_VISUALCROSSING_API_URL "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
+#endif
+
 class VisualCrossingFeed : public WeatherFeed {
 public:
     VisualCrossingFeed(const String &apiKey, int units);
