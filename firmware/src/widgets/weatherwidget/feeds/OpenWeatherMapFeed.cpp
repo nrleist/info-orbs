@@ -10,8 +10,8 @@ OpenWeatherMapFeed::OpenWeatherMapFeed(const String &apiKey, int units)
 
 void OpenWeatherMapFeed::setupConfig(ConfigManager &config) {
     // Define the configuration for OpenWeatherMap variables
-    config.addConfigFloat("WeatherWidget", "openWeatherLat", &m_lat_id, t_openWeatherLat);
-    config.addConfigFloat("WeatherWidget", "openWeatherLong", &m_long_id, t_openWeatherLong);
+    config.addConfigString("WeatherWidget", "openWeatherLat", &m_lat_id, 10, t_openWeatherLat);
+    config.addConfigString("WeatherWidget", "openWeatherLong", &m_long_id, 10, t_openWeatherLong);
     config.addConfigString("WeatherWidget", "openWeatherName", &m_name, 15, t_openWeatherName);
 }
 
@@ -22,7 +22,7 @@ bool OpenWeatherMapFeed::getWeatherData(WeatherDataModel &model) {
         lang = "en";
     }
 
-    String httpRequestAddress = String(WEATHER_OPENWEATHERMAP_API_URL) + "?lat=" + String(m_lat_id, 5) + "&lon=" + String(m_long_id, 5) +
+    String httpRequestAddress = String(WEATHER_OPENWEATHERMAP_API_URL) + "?lat=" + m_lat_id.c_str() + "&lon=" + m_long_id.c_str() +
                                 +"&appid=" + apiKey + "&units=" + weatherUnits + "&exclude=minutely,hourly,alerts&lang=" + lang +
                                 "&cnt=3";
 

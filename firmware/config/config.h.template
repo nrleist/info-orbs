@@ -43,8 +43,8 @@
 // Only define one alternate weather feed at a time
 //#define WEATHER_OPENWEATHERMAP_FEED
 //#define WEATHER_OPENWEATHERMAP_API_KEY "" // Your OpenWeatherMap API key (get it from https://home.openweathermap.org/users/sign_up)
-//#define WEATHER_OPENWEATHERMAP_LAT 0 // Latitude of your location
-//#define WEATHER_OPENWEATHERMAP_LON 0 // Longitude of your location
+//#define WEATHER_OPENWEATHERMAP_LAT "" // Latitude of your location
+//#define WEATHER_OPENWEATHERMAP_LON "" // Longitude of your location
 //#define WEATHER_OPENWEATHERMAP_NAME "Victoria" // Name of your location
 
 //#define WEATHER_TEMPEST_FEED          // Uncomment this line to use the Tempest weather feed  

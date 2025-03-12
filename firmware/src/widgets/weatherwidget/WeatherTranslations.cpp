@@ -30,5 +30,5 @@ constexpr Translation t_openWeatherLong = {
 };
 
 constexpr Translation t_openWeatherName = {
-    "OpenWeather Name", // EN
+    "OpenWeather Location Name", // EN
 };

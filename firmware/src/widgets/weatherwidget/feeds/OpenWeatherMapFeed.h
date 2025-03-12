@@ -29,8 +29,8 @@ public:
 
 private:
     String apiKey;
-    float m_lat_id = WEATHER_OPENWEATHERMAP_LAT;
-    float m_long_id = WEATHER_OPENWEATHERMAP_LON;
+    std::string m_lat_id = WEATHER_OPENWEATHERMAP_LAT;
+    std::string m_long_id = WEATHER_OPENWEATHERMAP_LON;
     std::string m_name = WEATHER_OPENWEATHERMAP_NAME;
 
 #ifdef WEATHER_UNITS_METRIC
