@@ -22,7 +22,7 @@ bool OpenWeatherMapFeed::getWeatherData(WeatherDataModel &model) {
         lang = "en";
     }
 
-    String httpRequestAddress = String(WEATHER_OPENWEATHERMAP_API_URL) + "?lat=" + String(m_lat_id) + "&lon=" + String(m_long_id) +
+    String httpRequestAddress = String(WEATHER_OPENWEATHERMAP_API_URL) + "?lat=" + String(m_lat_id, 5) + "&lon=" + String(m_long_id, 5) +
                                 +"&appid=" + apiKey + "&units=" + weatherUnits + "&exclude=minutely,hourly,alerts&lang=" + lang +
                                 "&cnt=3";
 
