@@ -30,6 +30,10 @@ GlobalTime *GlobalTime::getInstance() {
     return m_instance;
 }
 
+time_t GlobalTime::getUnixEpochIfAvailable() {
+    return m_instance ? m_instance->getUnixEpoch() : 0;
+}
+
 void GlobalTime::updateTime(bool force) {
     if (force || millis() - m_updateTimer > m_oneSecond) {
         m_updateTimer = millis();
