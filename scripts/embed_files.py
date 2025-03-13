@@ -11,7 +11,7 @@ from os.path import basename, join
 from SCons.Script import Import
 
 # Extract macros from the config header file
-config_header_path = "firmware/config/config.h"
+config_header_path = "firmware/config/orb_config.h"
 config_system_header_path = "firmware/config/config.system.h"
 
 # Map macros to directories and their respective files

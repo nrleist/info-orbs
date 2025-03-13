@@ -10,7 +10,7 @@ import re, shutil, os, os.path, glob
 from SCons.Script import Import
 
 # Extract macros from the config header file
-config_header_path = "firmware/config/config.h"
+config_header_path = "firmware/config/orb_config.h"
 config_system_header_path = "firmware/config/config.system.h"
 build_dir = "build"
 out_dir = os.path.join(build_dir, "littlefs")

@@ -1,6 +1,6 @@
 // Include config.h if it exists
-#ifdef USE_CONFIG_H
-    #include "config.h"
+#if __has_include("orb_config.h")
+    #include "orb_config.h"
 #endif
 
 #include "config.system.h"
