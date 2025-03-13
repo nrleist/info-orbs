@@ -117,4 +117,77 @@
     #define MAX_RETRIES 3
 #endif
 
+// Defaults for user configuration
+
+// WIDGETS
+#ifndef INCLUDE_WEATHER
+    #define INCLUDE_WEATHER true
+#endif
+#ifndef INCLUDE_STOCK
+    #define INCLUDE_STOCK true
+#endif
+#ifndef INCLUDE_PARQET
+    #define INCLUDE_PARQET false
+#endif
+#ifndef INCLUDE_WEBDATA
+    #define INCLUDE_WEBDATA false
+#endif
+#ifndef INCLUDE_MQTT
+    #define INCLUDE_MQTT false
+#endif
+
+#ifndef TIMEZONE_API_LOCATION
+    #define TIMEZONE_API_LOCATION "America/Vancouver"
+#endif
+
+#ifndef ORB_ROTATION
+    #define ORB_ROTATION 0
+#endif
+
+#ifndef WIDGET_CYCLE_DELAY
+    #define WIDGET_CYCLE_DELAY 0
+#endif
+
+#ifndef LOCALE
+    #define LOCALE EN
+#endif
+
+// Clock widget settings
+
+#ifndef FORMAT_24_HOUR
+    #define FORMAT_24_HOUR false
+#endif
+#ifndef SHOW_AM_PM_INDICATOR
+    #define SHOW_AM_PM_INDICATOR false
+#endif
+#ifndef SHOW_SECOND_TICKS
+    #define SHOW_SECOND_TICKS true
+#endif
+#ifndef CLOCK_COLOR
+    #define CLOCK_COLOR 0xfc80
+#endif
+#ifndef CLOCK_SHADOW_COLOR
+    #define CLOCK_SHADOW_COLOR 0x20a1
+#endif
+#ifndef CLOCK_SHADOWING
+    #define CLOCK_SHADOWING true
+#endif
+#ifndef USE_CLOCK_NIXIE
+    #define USE_CLOCK_NIXIE NIXIE_NOHOLES
+#endif
+#ifndef USE_CLOCK_CUSTOM
+    #define USE_CLOCK_CUSTOM 1
+#endif
+#ifndef DEFAULT_CLOCK
+    #define DEFAULT_CLOCK ClockType::NORMAL
+#endif
+
+#ifndef WEATHER_LOCATION
+    #define WEATHER_LOCATION "Victoria, BC"
+#endif
+
+#ifndef LOG_LEVEL
+    #define LOG_LEVEL LOG_LEVEL_INFO
+#endif
+
 #endif
