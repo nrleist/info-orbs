@@ -148,8 +148,8 @@
     #define WIDGET_CYCLE_DELAY 0
 #endif
 
-#ifndef LOCALE
-    #define LOCALE EN
+#ifndef LANGUAGE
+    #define LANGUAGE EN
 #endif
 
 // Clock widget settings
