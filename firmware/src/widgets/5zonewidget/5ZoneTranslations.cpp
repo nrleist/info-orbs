@@ -25,16 +25,6 @@ constexpr Translation t_5zoneWorkEndDesc = {
     "Zone Work End time", // EN
 };
 
-/*
-constexpr Translation t_5zone = {
-    "", // EN
+constexpr Translation t_5zoneShowBizHours = {
+    "Show Business hours", // EN
 };
-
-constexpr Translation t_5zone = {
-    "", // EN
-};
-
-constexpr Translation t_5zone = {
-    "", // EN
-};
-*/

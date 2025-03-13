@@ -51,8 +51,8 @@ private:
     uint16_t m_backgroundColor;
     uint16_t m_foregroundColor;
     std::string m_timezoneLocation = TIMEZONE_API_LOCATION;
-    int m_type;
     int m_format = CLOCK_FORMAT;
+    bool m_showBizHours;
 };
 
 #endif // FIVE_ZONE_WIDGET_H

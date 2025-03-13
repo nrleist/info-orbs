@@ -8,6 +8,8 @@ FiveZoneWidget::FiveZoneWidget(ScreenManager &manager, ConfigManager &config) : 
     m_time = GlobalTime::getInstance();
 
     m_config.addConfigBool("FiveZoneWidget", "5zoEnabled", &m_enabled, t_enableWidget);
+    m_config.addConfigBool("FiveZoneWidget", "showBizHours", &m_showBizHours, t_5zoneShowBizHours, false);
+
     for (int i = 0; i < MAX_ZONES; i++) {
         const char *zoneName = strdup((String("5zoZoneName") + String(i)).c_str());
         const char *zoneDesc = strdup((i18nStr(t_5zoneDesc) + " " + String(i) + ": ").c_str());
@@ -17,6 +19,7 @@ FiveZoneWidget::FiveZoneWidget(ScreenManager &manager, ConfigManager &config) : 
         const char *zoneTZDesc = strdup((i18nStr(t_5zoneTZDesc) + " " + String(i) + ": ").c_str());
         m_config.addConfigString("FiveZoneWidget", zoneTZ, &m_timeZones[i].tzInfo, 50, zoneTZDesc, false);
     }
+
     for (int i = 0; i < MAX_ZONES; i++) {
         const char *zoneWorkStart = strdup((String("5zoZoneWstart") + String(i)).c_str());
         const char *zoneWorkStartDesc = strdup((i18nStr(t_5zoneWorkStartDesc) + " " + String(i) + ": ").c_str());
@@ -27,7 +30,6 @@ FiveZoneWidget::FiveZoneWidget(ScreenManager &manager, ConfigManager &config) : 
         m_config.addConfigInt("FiveZoneWidget", zoneWorkEnd, &m_timeZones[i].m_workEnd, zoneWorkEndDesc, true);
     }
     m_format = m_config.getConfigInt("clockFormat", 0);
-    m_type = m_config.getConfigInt("defaultType", 0);
 }
 
 void FiveZoneWidget::setup() {
@@ -182,9 +184,11 @@ void FiveZoneWidget::displayZone(int8_t displayIndex) {
             m_foregroundColor = WEEKEND_FG_COLOR;
             m_manager.setFontColor(m_foregroundColor);
         } else {
-            if (lv_hour < zone.m_workStart || lv_hour >= zone.m_workEnd) {
-                m_foregroundColor = AFTER_FG_COLOR;
-                m_manager.setFontColor(m_foregroundColor);
+            if (m_showBizHours) {
+                if (lv_hour < zone.m_workStart || lv_hour >= zone.m_workEnd) {
+                    m_foregroundColor = AFTER_FG_COLOR;
+                    m_manager.setFontColor(m_foregroundColor);
+                }
             }
         }
 
