@@ -148,10 +148,6 @@
     #define WIDGET_CYCLE_DELAY 0
 #endif
 
-#ifndef LANGUAGE
-    #define LANGUAGE EN
-#endif
-
 // Clock widget settings
 
 #ifndef FORMAT_24_HOUR
