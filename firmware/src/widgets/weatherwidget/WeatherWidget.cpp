@@ -46,10 +46,8 @@ WeatherFeed *WeatherWidget::createWeatherFeed() {
 }
 
 void WeatherWidget::changeMode() {
-    m_mode++;
-    if (m_mode > MODE_LOWS) {
-        m_mode = MODE_HIGHS;
-    }
+    m_prevMillisSwitch = millis();
+    m_mode = (m_mode == MODE_HIGHS) ? MODE_LOWS : MODE_HIGHS;
     threeDayWeather(4);
 }
 
@@ -84,12 +82,7 @@ void WeatherWidget::draw(bool force) {
     }
 
     if ((millis() - m_prevMillisSwitch >= (m_switchinterval * 1000)) && m_switchinterval > 0) {
-        m_prevMillisSwitch = millis();
-        m_mode++;
-        if (m_mode > MODE_LOWS) {
-            m_mode = MODE_HIGHS;
-        }
-        threeDayWeather(4);
+        changeMode();
     }
 }
 
