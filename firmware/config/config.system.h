@@ -182,8 +182,14 @@
     #define DEFAULT_CLOCK ClockType::NORMAL
 #endif
 
+// Weather widget settings
 #ifndef WEATHER_LOCATION
     #define WEATHER_LOCATION "Victoria, BC"
+#endif
+
+// Stock widget settings
+#ifndef STOCK_TICKER_LIST
+    #define STOCK_TICKER_LIST "BTC/USD,USD/CAD,XEQT,SPY,APC&country=Germany"
 #endif
 
 #ifndef LOG_LEVEL

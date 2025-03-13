@@ -10,11 +10,11 @@
 #define LANGUAGE LANG_EN                          // Language selection - possible values are LANG_EN, LANG_DE, LANG_FR
 
 // WIDGETS
-#define INCLUDE_WEATHER       // include WeatherWidget
-#define INCLUDE_STOCK         // include StockWidget
-#define INCLUDE_PARQET        // include ParqetWidget
-//#define INCLUDE_WEBDATA       // include WebDataWidget
-//#define INCLUDE_MQTT          // include MQTTWidget
+#define INCLUDE_WEATHER true  // include WeatherWidget
+#define INCLUDE_STOCK true    // include StockWidget
+#define INCLUDE_PARQET false  // include ParqetWidget
+#define INCLUDE_WEBDATA false // include WebDataWidget
+#define INCLUDE_MQTT false    // include MQTTWidget
 
 // NIGHTTIME DIMMING
 //#define DIM_START_HOUR 22  // Dim the screens at this time (24h format)
@@ -73,7 +73,7 @@
 
 // Log levels: LOG_LEVEL_SILENT, LOG_LEVEL_FATAL, LOG_LEVEL_ERROR, 
 // LOG_LEVEL_WARNING, LOG_LEVEL_INFO, LOG_LEVEL_TRACE, LOG_LEVEL_VERBOSE (NOTICE is the same as INFO, it's kept for backward compatability)
-#define LOG_LEVEL LOG_LEVEL_INFO
+// #define LOG_LEVEL LOG_LEVEL_INFO
 
 // Include current time in all log output
 // #define LOG_TIMESTAMP
