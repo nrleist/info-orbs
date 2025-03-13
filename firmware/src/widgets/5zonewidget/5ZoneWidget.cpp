@@ -1,6 +1,7 @@
 #include "5ZoneWidget.h"
 #include "5ZoneTranslations.h"
 #include <ArduinoJson.h>
+#include <ArduinoLog.h>
 
 FiveZoneWidget::FiveZoneWidget(ScreenManager &manager, ConfigManager &config) : Widget(manager, config) {
 
@@ -52,10 +53,10 @@ void FiveZoneWidget::getTZoneOffset(int8_t zoneIndex) {
                 zone.nextTimeZoneUpdate = doc["zoneEnd"].as<unsigned long>() + random(5 * 60); // Randomize update by 5 minutes to avoid flooding the API
             }
         } else {
-            Serial.println("Deserialization error on timezone offset API response");
+            Log.warningln("Deserialization error on timezone offset API response");
         }
     } else {
-        Serial.println("Failed to get timezone offset from API");
+        Log.warningln("Failed to get timezone offset from API");
     }
 }
 
