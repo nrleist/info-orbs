@@ -189,16 +189,13 @@ void GlobalTime::getTimeZoneOffsetFromAPI() {
                 m_nextTimeZoneUpdate = makeTime(m_temp_t) + random(5 * 60); // Randomize update by 5 minutes to avoid flooding the API;
             }
 #endif
-            Serial.print("Timezone Offset from API: ");
-            Serial.println(m_timeZoneOffset);
-            Serial.print("Next timezone update: ");
-            Serial.println(m_nextTimeZoneUpdate);
+            Log.infoln("Timezone Offset from API: %d; Next timezone update: %d", m_timeZoneOffset, m_nextTimeZoneUpdate);
             m_timeClient->setTimeOffset(m_timeZoneOffset);
         } else {
-            Serial.println("Deserialization error on timezone offset API response");
+            Log.warningln("Deserialization error on timezone offset API response");
         }
     } else {
-        Serial.println("Failed to get timezone offset from API");
+        Log.warningln("Failed to get timezone offset from API");
     }
 }
 
