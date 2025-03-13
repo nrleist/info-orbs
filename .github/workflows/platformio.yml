@@ -27,9 +27,9 @@ jobs:
       - name: Install PlatformIO Core
         run: pip install --upgrade platformio
 
-      - name: Create config.h
+      - name: Create orb_config.h
         working-directory: ./firmware
-        run: cp config/config.h.template config/config.h
+        run: cp config/orb_config.h.template config/orb_config.h
 
       - name: Build PlatformIO Project
         run: pio run
@@ -44,4 +44,4 @@ jobs:
 
       - name: Output artifact URL
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        run:  echo 'Artifact URL is ${{ steps.artifact-upload-step.outputs.artifact-url }}'
+        run: echo 'Artifact URL is ${{ steps.artifact-upload-step.outputs.artifact-url }}'
