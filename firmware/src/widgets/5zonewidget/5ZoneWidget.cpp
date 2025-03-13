@@ -15,14 +15,15 @@ FiveZoneWidget::FiveZoneWidget(ScreenManager &manager, ConfigManager &config) : 
         const char *zoneTZ = strdup((String("5zoZoneInfo") + String(i)).c_str());
         const char *zoneTZDesc = strdup((i18nStr(t_5zoneTZDesc) + " " + String(i) + ": ").c_str());
         m_config.addConfigString("FiveZoneWidget", zoneTZ, &m_timeZones[i].tzInfo, 50, zoneTZDesc, false);
-
+    }
+    for (int i = 0; i < MAX_ZONES; i++) {
         const char *zoneWorkStart = strdup((String("5zoZoneWstart") + String(i)).c_str());
         const char *zoneWorkStartDesc = strdup((i18nStr(t_5zoneWorkStartDesc) + " " + String(i) + ": ").c_str());
-        m_config.addConfigInt("FiveZoneWidget", zoneWorkStart, &m_timeZones[i].m_workStart, zoneWorkStartDesc, false);
+        m_config.addConfigInt("FiveZoneWidget", zoneWorkStart, &m_timeZones[i].m_workStart, zoneWorkStartDesc, true);
 
         const char *zoneWorkEnd = strdup((String("5zoZoneWend") + String(i)).c_str());
         const char *zoneWorkEndDesc = strdup((i18nStr(t_5zoneWorkEndDesc) + " " + String(i) + ": ").c_str());
-        m_config.addConfigInt("FiveZoneWidget", zoneWorkEnd, &m_timeZones[i].m_workEnd, zoneWorkEndDesc, false);
+        m_config.addConfigInt("FiveZoneWidget", zoneWorkEnd, &m_timeZones[i].m_workEnd, zoneWorkEndDesc, true);
     }
     m_format = m_config.getConfigInt("clockFormat", 0);
     m_type = m_config.getConfigInt("defaultType", 0);
@@ -32,7 +33,6 @@ void FiveZoneWidget::setup() {
 }
 
 void FiveZoneWidget::getTZoneOffset(int8_t zoneIndex) {
-    Serial.println("enter updateTZoffset");
 
     TimeZone &zone = m_timeZones[zoneIndex];
     HTTPClient http;
