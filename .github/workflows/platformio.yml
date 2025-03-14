@@ -31,23 +31,21 @@ jobs:
       - name: Install PlatformIO Core
         run: pip install --upgrade platformio
 
-      # Conditionally copy the orb_config.h only in "with_file" builds
+      # Only copy orb_config.h if test_config == "with_file"
       - name: Create orb_config.h
         if: ${{ matrix.test_config == 'with_file' }}
-        working-directory: ./firmware
-        run: cp config/orb_config.h.template config/orb_config.h
+        run: cp firmware/config/orb_config.h.template firmware/config/orb_config.h
 
+      # IMPORTANT: Build from the repo root (since platformio.ini is in root)
       - name: Build PlatformIO Project
-        working-directory: ./firmware
         run: pio run
 
-      # Upload artifacts for each test config on Ubuntu only (optional)
+      # Upload artifact on Ubuntu only, naming it firmware-with_file or firmware-without_file
       - name: Upload artifact on ubuntu-latest
         if: ${{ matrix.os == 'ubuntu-latest' }}
         id: artifact-upload-step
         uses: actions/upload-artifact@v4
         with:
-          # Name includes the test_config so you know which artifact is which
           name: firmware-${{ matrix.test_config }}
           path: .pio/build/esp32doit-devkit-v1/firmware.bin
 
