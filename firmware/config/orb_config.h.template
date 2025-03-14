@@ -39,8 +39,9 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // WEB-BASED CONFIGURATION
-// NOTE: If you are using the web-based configuration, you can ignore many of the settings in this section and configure your settings in the web interface.
-// If you have saved your settings in the web interface, any changes you make here will NOT take effect until/unless you clear the settings in the web interface.
+// NOTE: If you are using the web-based configuration, you can ignore many (or possibly all) of the settings in this section
+// and instead configure your settings in the web interface. If you have saved your settings in the web interface, any changes
+// you make here will NOT take effect until/unless you clear the settings in the web interface.
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // MAIN CONFIGURATION
