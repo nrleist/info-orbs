@@ -1,7 +1,7 @@
 ###########################################################################################################
 # This script will automatically be called by PlatformIO during the build process (as pre-action script)
 # It is responsible for embedding the correct images/files into the firmware depending
-# on the buildflags and orb_config.h defines.
+# on the buildflags and config.system.h and orb_config.h defines.
 #
 # You do NOT need to run it manually
 ###########################################################################################################
