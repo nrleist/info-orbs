@@ -146,7 +146,8 @@ void FiveZoneWidget::displayZone(int8_t displayIndex, bool force) {
     m_manager.setFont(DEFAULT_FONT);
     m_manager.selectScreen(displayIndex);
 
-    if(force) m_manager.fillScreen(m_backgroundColor);
+    if (force)
+        m_manager.fillScreen(m_backgroundColor);
     m_foregroundColor = m_workColour;
     m_manager.setFontColor(m_foregroundColor);
 
@@ -169,7 +170,7 @@ void FiveZoneWidget::displayZone(int8_t displayIndex, bool force) {
         lv_hourD = lv_zoneDiff / 3600;
         lv_minuteD = (lv_zoneDiff / 60) % 60;
 
-        //calculate if day offset
+        // calculate if day offset
         if (lv_zoneDiff > 0) {
             lv_offsetStr = "+";
             lv_ringColor = m_afterLocalTzColour;
@@ -194,32 +195,34 @@ void FiveZoneWidget::displayZone(int8_t displayIndex, bool force) {
         if (m_format == 0) {
             lv_displayHour = ((lv_hour < 10) ? "0" : "") + String(lv_hour);
             lv_displayAM = "";
-        }
-        else {
+        } else {
             lv_displayHour = String(hourFormat12(lv_unixEpoch));
             lv_displayAM = (isAM(lv_unixEpoch)) ? "AM" : "PM";
         }
 
         m_manager.drawString(zone.locName.c_str(), ScreenCenterX, nameY, 18, Align::MiddleCenter);
 
-        if(lv_dateIndicator != zone.m_lastDateIndicator || force){
+        if (lv_dateIndicator != zone.m_lastDateIndicator || force) {
+            m_manager.fillRect(ScreenCenterX - 80, ampmY - 10, 45, 22, m_backgroundColor);
             m_manager.drawString(lv_dateIndicator, ScreenCenterX - 60, ampmY, 16, Align::MiddleCenter);
             zone.m_lastDateIndicator = lv_dateIndicator;
         }
-        
-        if(lv_displayAM != zone.m_lastDisplayAM || force){
-            m_manager.drawString(lv_displayAM, ScreenCenterX + 60, ampmY, 14, Align::MiddleCenter);
+
+        if (lv_displayAM != zone.m_lastDisplayAM || force) {
+            m_manager.fillRect(ScreenCenterX + 43, ampmY - 10, 37, 22, m_backgroundColor);
+            m_manager.drawString(lv_displayAM, ScreenCenterX + 60, ampmY, 16, Align::MiddleCenter);
             zone.m_lastDisplayAM = lv_displayAM;
         }
 
         if (lv_zoneDiff != zone.m_zoneDiff || force) {
-            m_manager.fillRect(ScreenCenterX-80,offsetY-10,160,30,m_backgroundColor);
-            if(zone.timeZoneOffset == -1) m_manager.setFontColor(TFT_RED);
+            m_manager.fillRect(ScreenCenterX - 35, offsetY - 10, 72, 22, m_backgroundColor);
+            if (zone.timeZoneOffset == -1)
+                m_manager.setFontColor(TFT_RED);
             m_manager.drawString(lv_offsetStr, ScreenCenterX, offsetY, 16, Align::MiddleCenter);
             m_manager.setFontColor(m_foregroundColor);
             zone.m_zoneDiff = lv_zoneDiff;
         }
-        
+
         if (m_showBizHours) {
             m_manager.drawArc(120, 120, 120, 115, 0, 360, lv_ringColor, m_backgroundColor);
             if (isWeekend(lv_weekday)) {
@@ -237,7 +240,7 @@ void FiveZoneWidget::displayZone(int8_t displayIndex, bool force) {
 
         String minuteStr = (lv_minute < 10) ? "0" + String(lv_minute) : String(lv_minute);
         String lv_displayTime = lv_displayHour + ":" + minuteStr;
-        m_manager.fillRect(13,80,215,70,m_backgroundColor);
+        m_manager.fillRect(14, 82, 215, 69, m_backgroundColor);
         m_manager.drawString(lv_displayTime, ScreenCenterX, clockY, 64, Align::MiddleCenter);
     }
 }
