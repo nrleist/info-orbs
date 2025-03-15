@@ -35,7 +35,7 @@ MQTTWidget::MQTTWidget(ScreenManager &manager, ConfigManager &config)
 #ifdef MQTT_WIDGET_PASS
     mqttPass = MQTT_WIDGET_PASS;
 #endif
-    m_enabled = (INCLUDE_MQTT == WIDGET_ENABLED);
+    m_enabled = (INCLUDE_MQTT == WIDGET_ON);
     m_config.addConfigBool("MqttWidget", "mqttEnabled", &m_enabled, t_enableWidget);
     m_config.addConfigString("MqttWidget", "mqttHost", &mqttHost, 30, t_mqttHost, true);
     m_config.addConfigInt("MqttWidget", "mqttPort", &mqttPort, t_mqttPort, true);

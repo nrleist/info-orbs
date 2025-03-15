@@ -12,9 +12,9 @@ enum ScreenMode {
 };
 
 // Widget states
-#define WIDGET_OFF 0
-#define WIDGET_DISABLED 1
-#define WIDGET_ENABLED 2
+#define WIDGET_DISABLED 0
+#define WIDGET_OFF 1
+#define WIDGET_ON 2
 
 #define ScreenWidth 240
 #define ScreenHeight 240

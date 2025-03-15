@@ -6,7 +6,7 @@
 #include <iomanip>
 
 StockWidget::StockWidget(ScreenManager &manager, ConfigManager &config) : Widget(manager, config) {
-    m_enabled = (INCLUDE_STOCK == WIDGET_ENABLED);
+    m_enabled = (INCLUDE_STOCK == WIDGET_ON);
 
     m_config.addConfigBool("StockWidget", "stocksEnabled", &m_enabled, t_enableWidget);
     config.addConfigString("StockWidget", "stockList", &m_stockList, 200, t_stockList);

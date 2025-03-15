@@ -23,17 +23,17 @@ void addWidgets() {
     // Always add clock
     widgetSet->add(new ClockWidget(*sm, *config));
 
-#if INCLUDE_WEATHER != WIDGET_OFF
+#if INCLUDE_WEATHER != WIDGET_DISABLED
     widgetSet->add(new WeatherWidget(*sm, *config));
 #endif
 
-#if INCLUDE_STOCK != WIDGET_OFF
+#if INCLUDE_STOCK != WIDGET_DISABLED
     widgetSet->add(new StockWidget(*sm, *config));
 #endif
-#if INCLUDE_PARQET != WIDGET_OFF
+#if INCLUDE_PARQET != WIDGET_DISABLED
     widgetSet->add(new ParqetWidget(*sm, *config));
 #endif
-#if INCLUDE_WEBDATA != WIDGET_OFF
+#if INCLUDE_WEBDATA != WIDGET_DISABLED
     #ifdef WEB_DATA_WIDGET_URL
     widgetSet->add(new WebDataWidget(*sm, *config, WEB_DATA_WIDGET_URL));
     #endif
@@ -41,10 +41,10 @@ void addWidgets() {
     widgetSet->add(new WebDataWidget(*sm, *config, WEB_DATA_STOCK_WIDGET_URL));
     #endif
 #endif
-#if INCLUDE_MQTT != WIDGET_OFF
+#if INCLUDE_MQTT != WIDGET_DISABLED
     widgetSet->add(new MQTTWidget(*sm, *config));
 #endif
-#if INCLUDE_MATRIXSCREEN != WIDGET_OFF
+#if INCLUDE_MATRIXSCREEN != WIDGET_DISABLED
     widgetSet->add(new MatrixWidget(*sm, *config));
 #endif
 }
