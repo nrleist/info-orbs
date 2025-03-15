@@ -18,9 +18,9 @@ The `TaskFactory` class is responsible for creating tasks that can be executed b
       "https://example.com/api/data",
       [](int httpCode, const String &response) {
           if (httpCode > 0) {
-              Serial.println("Response: " + response);
+              Log.infoln("Response: " + response.c_str());
           } else {
-              Serial.println("HTTP request failed");
+              Log.infoln("HTTP request failed");
           }
       }
   );
@@ -76,9 +76,9 @@ The `TaskManager` singleton class is responsible for managing and executing task
       "https://example.com/api/data",
       [](int httpCode, const String &response) {
           if (httpCode > 0) {
-              Serial.println("Response: " + response);
+              Log.infoln("Response: " + response.c_str());
           } else {
-              Serial.println("HTTP request failed");
+              Log.infoln"HTTP request failed");
           }
       }
   );

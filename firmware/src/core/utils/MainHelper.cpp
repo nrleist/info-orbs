@@ -8,6 +8,7 @@
 #include <HTTPClient.h>
 #include <TimeLib.h>
 #include <esp_task_wdt.h>
+#include <nvs_flash.h>
 
 static Button buttonLeft;
 static Button buttonMiddle;
@@ -117,6 +118,11 @@ void MainHelper::buttonPressed(uint8_t buttonId, ButtonState state) {
 
 void MainHelper::checkButtons() {
     ButtonState leftState = buttonLeft.getState();
+    if (leftState == BTN_VERY_LONG) {
+        Log.noticeln("Left button very long press detected -> Erasing NVS");
+        eraseNVSAndRestart();
+        return;
+    }
     if (leftState != BTN_NOTHING) {
         buttonPressed(BUTTON_LEFT, leftState);
     }
@@ -528,4 +534,12 @@ void MainHelper::printPrefix(Print *_logOutput, int logLevel) {
         sprintf(timestamp, "%02d:%02d:%02d ", hour(now_s), minute(now_s), second(now_s));
     }
     _logOutput->print(timestamp);
+}
+
+void MainHelper::eraseNVSAndRestart() {
+    Log.noticeln("Erasing NVS and restarting ESP...");
+    nvs_flash_erase();
+    nvs_flash_init();
+    Log.noticeln("Restarting ESP after NVS erase");
+    ESP.restart();
 }

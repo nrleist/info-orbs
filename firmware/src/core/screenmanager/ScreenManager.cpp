@@ -320,6 +320,43 @@ int16_t ScreenManager::drawLegacyChar(uint16_t uniCode, int32_t x, int32_t y, ui
     return m_tft.drawChar(uniCode, x, y, font);
 }
 
+int16_t ScreenManager::width() {
+    return m_tft.width();
+}
+
+int16_t ScreenManager::height() {
+    return m_tft.height();
+}
+
+void ScreenManager::setTextColor(uint16_t c) {
+    m_tft.setTextColor(c);
+}
+void ScreenManager::setTextColor(uint16_t c, uint16_t b) {
+    m_tft.setTextColor(c, b);
+}
+void ScreenManager::setTextColor(uint16_t c, uint16_t b, bool bgfill) {
+    m_tft.setTextColor(c, b, bgfill);
+}
+
+uint16_t ScreenManager::color565(uint8_t r, uint8_t g, uint8_t b) {
+    return m_tft.color565(r, g, b);
+}
+
+void ScreenManager::setCursor(int16_t x, int16_t y) {
+    m_tft.setCursor(x, y);
+}
+
+void ScreenManager::setTextSize(uint8_t s) {
+    m_tft.setTextSize(s);
+}
+
+void ScreenManager::print(String s) {
+    m_tft.print(s);
+}
+void ScreenManager::print(char c) {
+    m_tft.print(c);
+}
+
 // Static function to be used in TJpgDec callback
 bool ScreenManager::tftOutput(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t *bitmap) {
     if (instance == nullptr) {
