@@ -43,15 +43,20 @@ void StockWidget::setup() {
 void StockWidget::draw(bool force) {
     m_manager.setFont(DEFAULT_FONT);
     for (int8_t i = m_page * NUM_SCREENS; i < (m_page + 1) * NUM_SCREENS; i++) {
+        int8_t displayIndex = i % NUM_SCREENS;
         if (!m_stocks[i].isInitialized() && !m_stocks[i].getSymbol().isEmpty() && m_stocks[i].getTicker().isEmpty()) {
-            m_manager.selectScreen(i % NUM_SCREENS);
+            m_manager.selectScreen(displayIndex);
+            m_manager.clearScreen(displayIndex);
             m_manager.setFontColor(TFT_WHITE, TFT_BLACK);
             m_manager.drawCentreString(I18n::get(t_loadingData), ScreenCenterX, ScreenCenterY, 16);
         } else if ((m_stocks[i].isChanged() || force) && !m_stocks[i].getSymbol().isEmpty()) {
             Log.infoln("StockWidget::draw - %s", m_stocks[i].getSymbol().c_str());
-            displayStock(i % NUM_SCREENS, m_stocks[i], TFT_WHITE, TFT_BLACK);
+            displayStock(displayIndex, m_stocks[i], TFT_WHITE, TFT_BLACK);
             m_stocks[i].setChangedStatus(false);
             m_stocks[i].setInitializationStatus(true);
+        } else if (force) {
+            m_manager.selectScreen(displayIndex);
+            m_manager.clearScreen(displayIndex);
         }
     }
 
@@ -174,7 +179,6 @@ void StockWidget::nextPage() {
     m_page++;
     m_page %= m_pageCount;
     Log.infoln("StockWidget Page: %d", m_page + 1);
-    m_manager.clearAllScreens();
     draw(true);
 }
 
