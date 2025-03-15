@@ -31,10 +31,10 @@ jobs:
       - name: Install PlatformIO Core
         run: pip install --upgrade platformio
 
-      # Only copy orb_config.h if test_config == "with_config_file"
-      - name: Create orb_config.h
+      # Only copy config.h if test_config == "with_config_file"
+      - name: Create config.h
         if: ${{ matrix.test_config == 'with_config_file' }}
-        run: cp firmware/config/orb_config.h.template firmware/config/orb_config.h
+        run: cp firmware/config/config.h.template firmware/config/config.h
 
       # IMPORTANT: Build from the repo root (since platformio.ini is in root)
       - name: Build PlatformIO Project

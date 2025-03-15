@@ -19,7 +19,7 @@
 // WEATHER FEED SELECTION (ONLY SET ONE FEED TO TRUE)
 #define WEATHER_VISUALCROSSING_FEED true
 #define WEATHER_OPENWEATHERMAP_FEED false // requires your own API key (get it from https://home.openweathermap.org/users/sign_up)
-#define WEATHER_TEMPEST_FEED true
+#define WEATHER_TEMPEST_FEED false
 
 // ADVANCED COMPILE OPTIONS
 
