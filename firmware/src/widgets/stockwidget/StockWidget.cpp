@@ -173,7 +173,7 @@ void StockWidget::nextPage() {
     m_prevMillisSwitch = millis();
     m_page++;
     m_page %= m_pageCount;
-    Log.infoln("StockWidget Page: %d", m_page);
+    Log.infoln("StockWidget Page: %d", m_page + 1);
     m_manager.clearAllScreens();
     draw(true);
 }
