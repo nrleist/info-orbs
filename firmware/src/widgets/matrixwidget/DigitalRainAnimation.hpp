@@ -21,7 +21,7 @@ enum AnimMode { SHOWCASE,
 
 class DigitalRainAnimation {
 public:
-//    DigitalRainAnimation();
+    //    DigitalRainAnimation();
 
     // initialization
     void init(ScreenManager *gfx, bool biggerText = false, bool alphabetOnly = false) {

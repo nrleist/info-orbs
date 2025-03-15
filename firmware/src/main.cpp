@@ -1,13 +1,13 @@
 #include "GlobalResources.h"
 #include "MainHelper.h"
 #include "clockwidget/ClockWidget.h"
+#include "matrixwidget/MatrixWidget.h"
 #include "mqttwidget/MQTTWidget.h"
 #include "parqetwidget/ParqetWidget.h"
 #include "stockwidget/StockWidget.h"
 #include "weatherwidget/WeatherWidget.h"
 #include "webdatawidget/WebDataWidget.h"
 #include "wifiwidget/WifiWidget.h"
-#include "matrixwidget/MatrixWidget.h"
 #include <ArduinoLog.h>
 
 TFT_eSPI tft = TFT_eSPI();
