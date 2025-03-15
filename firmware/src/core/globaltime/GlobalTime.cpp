@@ -143,11 +143,7 @@ bool GlobalTime::isPM() {
 
 void GlobalTime::getTimeZoneOffsetFromAPI() {
     HTTPClient http;
-#ifndef TIMEZONE_API
-    http.begin(String(TIMEZONE_API_URL) + "?key=" + TIMEZONE_API_KEY + "&format=json&fields=gmtOffset,zoneEnd&by=zone&zone=" + String(m_timezoneLocation.c_str()));
-#else
     http.begin(String(TIMEZONE_API_URL) + "?timeZone=" + String(m_timezoneLocation.c_str()));
-#endif
 
     int httpCode = http.GET();
 
@@ -155,16 +151,6 @@ void GlobalTime::getTimeZoneOffsetFromAPI() {
         JsonDocument doc;
         DeserializationError error = deserializeJson(doc, http.getString());
         if (!error) {
-#ifndef TIMEZONE_API
-            m_timeZoneOffset = doc["gmtOffset"].as<int>();
-            if (doc["zoneEnd"].isNull()) {
-                // Timezone does not use DST, no futher updates necessary
-                m_nextTimeZoneUpdate = 0;
-            } else {
-                // Timezone uses DST, update when necessary
-                m_nextTimeZoneUpdate = doc["zoneEnd"].as<unsigned long>() + random(5 * 60); // Randomize update by 5 minutes to avoid flooding the API
-            }
-#else
             m_timeZoneOffset = doc["currentUtcOffset"]["seconds"].as<int>();
             if (doc["hasDayLightSaving"].as<bool>()) {
                 String dstStart = doc["dstInterval"]["dstStart"].as<String>();
@@ -188,7 +174,6 @@ void GlobalTime::getTimeZoneOffsetFromAPI() {
                 }
                 m_nextTimeZoneUpdate = makeTime(m_temp_t) + random(5 * 60); // Randomize update by 5 minutes to avoid flooding the API;
             }
-#endif
             Log.infoln("Timezone Offset from API: %d; Next timezone update: %d", m_timeZoneOffset, m_nextTimeZoneUpdate);
             m_timeClient->setTimeOffset(m_timeZoneOffset);
         } else {
