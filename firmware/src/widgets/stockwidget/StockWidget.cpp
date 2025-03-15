@@ -50,7 +50,7 @@ void StockWidget::draw(bool force) {
             m_manager.setFontColor(TFT_WHITE, TFT_BLACK);
             m_manager.drawCentreString(I18n::get(t_loadingData), ScreenCenterX, ScreenCenterY, 16);
         } else if ((m_stocks[i].isChanged() || force) && !m_stocks[i].getSymbol().isEmpty()) {
-            Log.infoln("StockWidget::draw - %s", m_stocks[i].getSymbol().c_str());
+            Log.traceln("StockWidget::draw - %s", m_stocks[i].getSymbol().c_str());
             displayStock(displayIndex, m_stocks[i], TFT_WHITE, TFT_BLACK);
             m_stocks[i].setChangedStatus(false);
             m_stocks[i].setInitializationStatus(true);
@@ -70,7 +70,7 @@ void StockWidget::update(bool force) {
 
         // Queue requests for each stock
         for (int8_t i = 0; i < m_stockCount; i++) {
-            Log.infoln("StockWidget::update - %s", m_stocks[i].getSymbol().c_str());
+            Log.traceln("StockWidget::update - %s", m_stocks[i].getSymbol().c_str());
             String url = "https://api.twelvedata.com/quote?apikey=e03fc53524454ab8b65d91b23c669cc5&symbol=" + m_stocks[i].getSymbol();
 
             StockDataModel &stock = m_stocks[i];
@@ -178,7 +178,7 @@ void StockWidget::nextPage() {
     m_prevMillisSwitch = millis();
     m_page++;
     m_page %= m_pageCount;
-    Log.infoln("StockWidget Page: %d", m_page + 1);
+    Log.traceln("StockWidget Page: %d", m_page + 1);
     draw(true);
 }
 
