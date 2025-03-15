@@ -49,6 +49,7 @@
 // and instead configure your settings in the web interface. If you have saved your settings in the web interface, any changes
 // you make here will NOT take effect until/unless you clear the settings in the web interface.  If you are NOT using the web-based
 // configuration, you can use this section to configure your settings.
+// NOTE: VERY Long pressing the left button (15 seconds) will clear all web-based settings including Wifi settings.
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // MAIN CONFIGURATION
