@@ -55,7 +55,7 @@
 //#define WEATHER_TEMPEST_STATION_NAME "Chicago" // Give your Tempest weather station a name
 
 // STOCK TICKER CONFIGURATION
-#define STOCK_TICKER_LIST "BTC/USD,USD/CAD,XEQT,SPY,APC&country=Germany" // Choose 5 securities to track. You can track forex, crypto (symbol/USD) or stocks from any exchange (if one ticker is part of multiple exchanges you can add on "&country=Canada" to narrow down to your ticker)
+#define STOCK_TICKER_LIST "BTC/USD,USD/CAD,XEQT,SPY,APC&country=Germany" // Choose up to 15 securities to track. You can track forex, crypto (symbol/USD) or stocks from any exchange (if one ticker is part of multiple exchanges you can add on "&country=Canada" to narrow down to your ticker)
 #define STOCK_CHANGE_FORMAT 0           //Show percent change (0) or price change (1)
 
 // PARQET.COM PORTFOLIO CONFIGURATION
