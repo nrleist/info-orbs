@@ -241,7 +241,7 @@ void FiveZoneWidget::displayZone(int8_t displayIndex, bool force) {
         String minuteStr = (lv_minute < 10) ? "0" + String(lv_minute) : String(lv_minute);
         String lv_displayTime = lv_displayHour + ":" + minuteStr;
         m_manager.fillRect(14, 82, 215, 69, m_backgroundColor);
-        m_manager.drawString(lv_displayTime, ScreenCenterX, clockY, 64, Align::MiddleCenter);
+        m_manager.drawString(lv_displayTime, ScreenCenterX, clockY, 62, Align::MiddleCenter);
     }
 }
 
