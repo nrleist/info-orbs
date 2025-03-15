@@ -120,7 +120,7 @@ def action():
     # Extract macros from config.system.h
     header_macros = extract_macros_with_values(config_system_header_path)
 
-    # If config.h exists, extract macros from it and override any existing macros
+    # If orb_config.h exists, extract macros from it and override any existing macros
     if os.path.exists(config_header_path):
         header_macros.update(extract_macros_with_values(config_header_path))
 

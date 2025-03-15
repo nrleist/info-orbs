@@ -65,6 +65,10 @@
     #define BUTTON_LONG_PRESS_TIME 2000 // Long press is registered after X ms
 #endif
 
+#ifndef BUTTON_VERY_LONG_PRESS_TIME
+    #define BUTTON_VERY_LONG_PRESS_TIME 15000 // 15 seconds
+#endif
+
 #ifndef BUTTON_MODE
     #define BUTTON_MODE INPUT_PULLDOWN
 #endif
@@ -109,11 +113,77 @@
     #define TIMEZONE_API_URL "http://api.timezonedb.com/v2.1/get-time-zone"
 #endif
 
+#ifndef TIMEZONE_API_LOCATION
+    #define TIMEZONE_API_LOCATION "America/Vancouver"
+#endif
+
+#ifndef ORB_ROTATION
+    #define ORB_ROTATION 0
+#endif
+
+#ifndef WIDGET_CYCLE_DELAY
+    #define WIDGET_CYCLE_DELAY 0
+#endif
+
 #ifndef MAX_RETRIES
     #define MAX_RETRIES 3
 #endif
 
+#ifndef LOG_LEVEL
+    #define LOG_LEVEL LOG_LEVEL_INFO
+#endif
+
+// WIDGETS
+#ifndef INCLUDE_WEATHER
+    #define INCLUDE_WEATHER true
+#endif
+#ifndef INCLUDE_STOCK
+    #define INCLUDE_STOCK true
+#endif
+#ifndef INCLUDE_PARQET
+    #define INCLUDE_PARQET false
+#endif
+#ifndef INCLUDE_WEBDATA
+    #define INCLUDE_WEBDATA false
+#endif
+#ifndef INCLUDE_MQTT
+    #define INCLUDE_MQTT false
+#endif
+#ifndef INCLUDE_MATRIXSCREEN
+    #define INCLUDE_MATRIXSCREEN false
+#endif
+
+// CLOCK WIDGET SETTINGS
+#ifndef FORMAT_24_HOUR
+    #define FORMAT_24_HOUR false
+#endif
+#ifndef SHOW_AM_PM_INDICATOR
+    #define SHOW_AM_PM_INDICATOR false
+#endif
+#ifndef SHOW_SECOND_TICKS
+    #define SHOW_SECOND_TICKS true
+#endif
+#ifndef CLOCK_COLOR
+    #define CLOCK_COLOR 0xfc80
+#endif
+#ifndef CLOCK_SHADOW_COLOR
+    #define CLOCK_SHADOW_COLOR 0x20a1
+#endif
+#ifndef CLOCK_SHADOWING
+    #define CLOCK_SHADOWING true
+#endif
+#ifndef USE_CLOCK_NIXIE
+    #define USE_CLOCK_NIXIE NIXIE_NOHOLES
+#endif
+#ifndef USE_CLOCK_CUSTOM
+    #define USE_CLOCK_CUSTOM 1
+#endif
+#ifndef DEFAULT_CLOCK
+    #define DEFAULT_CLOCK ClockType::NORMAL
+#endif
+
 // WEATHER FEEDS
+
 #ifndef WEATHER_VISUALCROSSING_FEED
     #define WEATHER_VISUALCROSSING_FEED true
 #endif
@@ -124,6 +194,26 @@
     #define WEATHER_TEMPEST_FEED false
 #endif
 
+#ifndef WEATHER_VISUALCROSSING_LOCATION
+    #define WEATHER_VISUALCROSSING_LOCATION "Victoria, BC"
+#endif
+
+#ifndef WEATHER_OPENWEATHERMAP_LAT
+    #define WEATHER_OPENWEATHERMAP_LAT "41.9795"
+#endif
+#ifndef WEATHER_OPENWEATHERMAP_LON
+    #define WEATHER_OPENWEATHERMAP_LON "-87.8865"
+#endif
+#ifndef WEATHER_OPENWEATHERMAP_NAME
+    #define WEATHER_OPENWEATHERMAP_NAME "Chicago"
+#endif
+#ifndef WEATHER_TEMPEST_STATION_ID
+    #define WEATHER_TEMPEST_STATION_ID "93748" // Set the station ID of your Tempest weather station
+#endif
+#ifndef WEATHER_TEMPEST_STATION_NAME
+    #define WEATHER_TEMPEST_STATION_NAME "Chicago" // Set the name of your Tempest weather station
+#endif
+
 #ifndef WEATHER_VISUALCROSSING_API_KEY
     #define WEATHER_VISUALCROSSING_API_KEY "XW2RDGD6XK432AF25BNK2A3C7"
 #endif
@@ -132,6 +222,14 @@
 #endif
 #ifndef WEATHER_TEMPEST_API_KEY
     #define WEATHER_TEMPEST_API_KEY "20c70eae-e62f-4d3b-b3a4-8586e90f3ac8"
+#endif
+
+// STOCK WIDGET SETTINGS
+#ifndef STOCK_TICKER_LIST
+    #define STOCK_TICKER_LIST "BTC/USD,USD/CAD,XEQT,SPY,APC&country=Germany"
+#endif
+#ifndef STOCK_CHANGE_FORMAT
+    #define STOCK_CHANGE_FORMAT 0
 #endif
 
 #endif

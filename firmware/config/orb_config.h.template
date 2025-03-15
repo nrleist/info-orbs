@@ -11,6 +11,12 @@
 #define INCLUDE_PARQET false // include ParqetWidget
 #define INCLUDE_WEBDATA false // include WebDataWidget
 #define INCLUDE_MQTT false // include MQTTWidget
+#define INCLUDE_MATRIXSCREEN false // include MatrixScreenWidget
+
+// WEATHER FEED SELECTION (ONLY SET ONE FEED TO TRUE)
+#define WEATHER_VISUALCROSSING_FEED true
+#define WEATHER_OPENWEATHERMAP_FEED false // requires your own API key (get it from https://home.openweathermap.org/users/sign_up)
+#define WEATHER_TEMPEST_FEED true
 
 // ADVANCED COMPILE OPTIONS
 
@@ -65,10 +71,19 @@
 // #define CLOCK_FONT DSEG7              // Define clock font (defaults to DSEG7, you can also try DSEG14 or FINAL_FRONTIER)
 
 // WEATHER CONFIGURATION
-#define WEATHER_LOCATION "Victoria, BC" // City/state for the weather, look it up on https://www.visualcrossing.com/weather-data
 #define WEATHER_SCREEN_MODE Dark // Can be either Light or Dark
 #define WEATHER_UNITS_METRIC // Comment this line out (or delete it) if you want imperial units for the weather
 #define HIGH_LOW_INTERVAL 0 // Switch between Highs and Lows on 3 day forecast in X seconds - set to 0 to disable
+
+#define WEATHER_VISUALCROSSING_LOCATION "Victoria, BC" // City/state for the weather, look it up on https://www.visualcrossing.com/weather-data
+
+#define WEATHER_OPENWEATHERMAP_API_KEY "SOME-KEY" // Your OpenWeatherMap API key (get it from https://home.openweathermap.org/users/sign_up)
+#define WEATHER_OPENWEATHERMAP_LAT "41.9795" // Latitude of your location
+#define WEATHER_OPENWEATHERMAP_LON "-87.8865" // Longitude of your location
+#define WEATHER_OPENWEATHERMAP_NAME "Chicago"
+
+#define WEATHER_TEMPEST_STATION_ID "155350" // Set the station ID of your Tempest weather station
+#define WEATHER_TEMPEST_STATION_NAME "Chicago" // Set the name of your Tempest weather station
 
 // STOCK TICKER CONFIGURATION
 #define STOCK_TICKER_LIST "BTC/USD,USD/CAD,XEQT,SPY,APC&country=Germany" // Choose 5 securities to track. You can track forex, crypto (symbol/USD) or stocks from any exchange (if one ticker is part of multiple exchanges you can add on "&country=Canada" to narrow down to your ticker) (WEB-BASED CONFIG)
