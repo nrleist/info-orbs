@@ -174,6 +174,8 @@ void StockWidget::displayStock(int8_t displayIndex, StockDataModel &stock, uint3
 }
 
 void StockWidget::nextPage() {
+    if (m_pageCount <= 1)
+        return;
     // Reset the timer for the next page if we just switched manually
     m_prevMillisSwitch = millis();
     m_page = (m_page + 1) % m_pageCount;
