@@ -1,7 +1,7 @@
 ###########################################################################################################
 # This script will automatically be called by PlatformIO during the build process (as pre-action script)
 # It is responsible for copying the correct images/files to the LittleFS directory based
-# on the buildflags and config.system.h and orb_config.h defines.
+# on the buildflags and config.system.h and config.h defines.
 #
 # You do NOT need to run it manually
 ###########################################################################################################
@@ -10,7 +10,7 @@ import re, shutil, os, os.path, glob
 from SCons.Script import Import
 
 # Extract macros from the config header file
-config_header_path = "firmware/config/orb_config.h"
+config_header_path = "firmware/config/config.h"
 config_system_header_path = "firmware/config/config.system.h"
 build_dir = "build"
 out_dir = os.path.join(build_dir, "littlefs")
@@ -141,7 +141,7 @@ def action():
     # Extract macros from config.system.h
     header_macros = extract_macros_with_values(config_system_header_path)
 
-    # If orb_config.h exists, extract macros from it and override any existing macros
+    # If config.h exists, extract macros from it and override any existing macros
     if os.path.exists(config_header_path):
         header_macros.update(extract_macros_with_values(config_header_path))
 

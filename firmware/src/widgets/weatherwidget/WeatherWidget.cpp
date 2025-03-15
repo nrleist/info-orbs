@@ -18,7 +18,7 @@
 #include <ArduinoLog.h>
 
 WeatherWidget::WeatherWidget(ScreenManager &manager, ConfigManager &config) : Widget(manager, config) {
-    m_enabled = true; // Enabled by default
+    m_enabled = (INCLUDE_WEATHER == WIDGET_ENABLED);
     m_weatherUnits = 0;
     m_config.addConfigBool("WeatherWidget", "weatherEnabled", &m_enabled, t_enableWidget);
     weatherFeed = createWeatherFeed();

@@ -135,22 +135,22 @@
 
 // WIDGETS
 #ifndef INCLUDE_WEATHER
-    #define INCLUDE_WEATHER true
+    #define INCLUDE_WEATHER WIDGET_ENABLED
 #endif
 #ifndef INCLUDE_STOCK
-    #define INCLUDE_STOCK true
+    #define INCLUDE_STOCK WIDGET_ENABLED
 #endif
 #ifndef INCLUDE_PARQET
-    #define INCLUDE_PARQET false
+    #define INCLUDE_PARQET WIDGET_DISABLED
 #endif
 #ifndef INCLUDE_WEBDATA
-    #define INCLUDE_WEBDATA false
+    #define INCLUDE_WEBDATA WIDGET_OFF
 #endif
 #ifndef INCLUDE_MQTT
-    #define INCLUDE_MQTT false
+    #define INCLUDE_MQTT WIDGET_OFF
 #endif
 #ifndef INCLUDE_MATRIXSCREEN
-    #define INCLUDE_MATRIXSCREEN false
+    #define INCLUDE_MATRIXSCREEN WIDGET_DISABLED
 #endif
 
 // CLOCK WIDGET SETTINGS

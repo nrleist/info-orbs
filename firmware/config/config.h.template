@@ -1,17 +1,20 @@
-#ifndef ORB_CONFIG_H
-#define ORB_CONFIG_H
+#ifndef CONFIG_H
+#define CONFIG_H
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// This config file is optional.  If you choose to use it copy it to a file named orb_config.h and place it in the same folder
+// This config file is optional.  If you choose to use it copy it to a file named config.h and place it in the same folder
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// USE THESE SETTINGS TO ENABLE/DISABLE WIDGETS
-#define INCLUDE_WEATHER true // include WeatherWidget
-#define INCLUDE_STOCK true // include StockWidget
-#define INCLUDE_PARQET false // include ParqetWidget
-#define INCLUDE_WEBDATA false // include WebDataWidget
-#define INCLUDE_MQTT false // include MQTTWidget
-#define INCLUDE_MATRIXSCREEN false // include MatrixScreenWidget
+// USE THESE SETTINGS TO ENABLE/DISABLE/TURN OFF WIDGETS
+// WIDGET_ENABLED = WIDGET IS ON BY DEFAULT BUT CAN BE TURN OFF IN THE WEB INTERFACE
+// WIDGET_DISABLED = WIDGET IS OFF BY DEFAULT BUT CAN BE TURN ON IN THE WEB INTERFACE
+// WIDGET_OFF = WIDGET IS OFF AND CANNOT BE TURNED ON IN THE WEB INTERFACE (USE THIS FOR WIDGETS YOU DON'T WANT TO USE)
+#define INCLUDE_WEATHER WIDGET_ENABLED
+#define INCLUDE_STOCK WIDGET_ENABLED
+#define INCLUDE_PARQET WIDGET_DISABLED
+#define INCLUDE_WEBDATA WIDGET_OFF
+#define INCLUDE_MQTT WIDGET_OFF
+#define INCLUDE_MATRIXSCREEN WIDGET_DISABLED
 
 // WEATHER FEED SELECTION (ONLY SET ONE FEED TO TRUE)
 #define WEATHER_VISUALCROSSING_FEED true

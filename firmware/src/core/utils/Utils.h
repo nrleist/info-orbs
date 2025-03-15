@@ -11,6 +11,11 @@ enum ScreenMode {
     Dark = 1
 };
 
+// Widget states
+#define WIDGET_OFF 0
+#define WIDGET_DISABLED 1
+#define WIDGET_ENABLED 2
+
 #define ScreenWidth 240
 #define ScreenHeight 240
 #define ScreenCenterX (ScreenWidth / 2)
