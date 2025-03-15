@@ -18,7 +18,7 @@ StockWidget::StockWidget(ScreenManager &manager, ConfigManager &config) : Widget
     char *symbol = strtok(stockList, ",");
     m_stockCount = 0;
     do {
-        if (m_stockCount > MAX_STOCKS) {
+        if (m_stockCount >= MAX_STOCKS) {
             Log.warningln("MAX STOCKS UNABLE TO ADD MORE");
             break;
         }
