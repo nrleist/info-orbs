@@ -26,5 +26,5 @@ constexpr Translation t_5zoneWorkEndDesc = {
 };
 
 constexpr Translation t_5zoneShowBizHours = {
-    "Show Business hours", // EN
+    "Use Business hour functions", // EN
 };

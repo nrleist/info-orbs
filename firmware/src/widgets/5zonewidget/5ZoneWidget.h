@@ -16,6 +16,9 @@
 #define WORK_FG_COLOR TFT_WHITE
 #define AFTER_FG_COLOR TFT_RED
 #define WEEKEND_FG_COLOR TFT_YELLOW
+#define BEFORE_LOCAL_TZ TFT_RED
+#define SAME_LOCAL_TZ TFT_BLACK
+#define AFTER_LOCAL_TZ TFT_GREEN
 
 struct TimeZone {
     std::string locName = "";
@@ -24,6 +27,9 @@ struct TimeZone {
     unsigned long nextTimeZoneUpdate = 0;
     int m_workStart = DEFAULT_WORK_HOUR_START; // Work start hour for this zone
     int m_workEnd = DEFAULT_WORK_HOUR_END; // Work end hour for this zone
+    String m_lastDateIndicator = "x";
+    String m_lastDisplayAM = "x";
+    int m_zoneDiff = -99;
 };
 
 class FiveZoneWidget : public Widget {
@@ -38,7 +44,7 @@ public:
 private:
     int getClockStamp();
     void getTZoneOffset(int8_t zoneIndex);
-    void displayZone(int8_t displayIndex);
+    void displayZone(int8_t displayIndex, bool force);
     bool isWeekend(int weekday) { return weekday == 1 || weekday == 7; }
     void changeFormat();
 
@@ -48,8 +54,15 @@ private:
     time_t m_unixEpoch = 0;
     int m_clockStampU = -1;
     int m_clockStampD = -1;
-    uint16_t m_backgroundColor;
+    uint16_t m_backgroundColor = BG_COLOR;
     uint16_t m_foregroundColor;
+    uint16_t m_workColour = WORK_FG_COLOR;
+    uint16_t m_afterWorkColour = AFTER_FG_COLOR;
+    uint16_t m_weekendColor = WEEKEND_FG_COLOR;
+    uint16_t m_beforeLocalTzColour = BEFORE_LOCAL_TZ;
+    uint16_t m_sameLocalTzColour = SAME_LOCAL_TZ;
+    uint16_t m_afterLocalTzColour = AFTER_LOCAL_TZ;
+
     std::string m_timezoneLocation = TIMEZONE_API_LOCATION;
     int m_format = CLOCK_FORMAT;
     bool m_showBizHours;
