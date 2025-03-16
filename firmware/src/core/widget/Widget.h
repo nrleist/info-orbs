@@ -10,6 +10,8 @@
 class WidgetTimer;
 
 enum class TimeFrequency : unsigned long {
+    Immediate = 0,
+    OneHundredMilliseconds = 100,
     OneSecond = 1000,
     TwoSeconds = 2000,
     FiveSeconds = 5000,

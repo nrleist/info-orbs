@@ -30,8 +30,6 @@ private:
     void displayStock(int8_t displayIndex, StockDataModel &stock, uint32_t backgroundColor, uint32_t textColor);
     void nextPage();
 
-    unsigned long m_stockDelay = 900000; // default to 15m between updates
-    unsigned long m_stockDelayPrev = 0;
     int8_t m_page = 0;
     int8_t m_pageCount = 0;
 
@@ -52,6 +50,17 @@ private:
 
     int m_switchinterval = 10;
     unsigned long m_prevMillisSwitch = 0;
+
+    WidgetTimer &m_drawTimer;
+    WidgetTimer &m_updateTimer;
+
+#ifndef STOCK_UPDATE_DELAY
+    #define STOCK_UPDATE_DELAY TimeFrequency::FifteenMinutes
+#endif
+
+#ifndef STOCK_DRAW_DELAY
+    #define STOCK_DRAW_DELAY TimeFrequency::TenSeconds
+#endif
 };
 
 #endif // STOCK_WIDGET_H
