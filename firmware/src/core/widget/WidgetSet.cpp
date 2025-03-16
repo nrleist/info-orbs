@@ -68,7 +68,7 @@ void WidgetSet::prev() {
 
 void WidgetSet::switchWidget() {
     m_screenManager->clearAllScreens();
-    getCurrent()->setup();
+    getCurrent()->update();
     uint32_t start = millis();
     getCurrent()->draw(true);
     uint32_t end = millis();
