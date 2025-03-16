@@ -59,7 +59,7 @@ private:
 #endif
 
 #ifndef STOCK_DRAW_DELAY
-    #define STOCK_DRAW_DELAY TimeFrequency::TenSeconds
+    #define STOCK_DRAW_DELAY TimeFrequency::ThreeSeconds
 #endif
 };
 

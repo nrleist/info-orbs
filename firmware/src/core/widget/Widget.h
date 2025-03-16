@@ -14,6 +14,8 @@ enum class TimeFrequency : unsigned long {
     OneHundredMilliseconds = 100,
     OneSecond = 1000,
     TwoSeconds = 2000,
+    ThreeSeconds = 3000,
+    FourSeconds = 4000,
     FiveSeconds = 5000,
     TenSeconds = 10000,
     ThirtySeconds = 30000,
