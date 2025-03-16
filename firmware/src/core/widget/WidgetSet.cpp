@@ -17,13 +17,7 @@ void WidgetSet::add(Widget *widget) {
 void WidgetSet::drawCurrent(bool force) {
     Widget *currentWidget = m_widgets[m_currentWidget];
     if (force || currentWidget->isItTimeToDraw()) {
-        unsigned long currentTime = millis();
-        unsigned long lastDrawTime = currentWidget->getLastDrawTime();
-        unsigned long timeSinceLastDraw = (lastDrawTime > 0) ? (currentTime - lastDrawTime) : 0;
-        uint32_t minutes = timeSinceLastDraw / 60000; // Convert ms to minutes
-        uint32_t seconds = (timeSinceLastDraw % 60000) / 1000; // Remaining ms to seconds
-        Log.traceln("Time to draw widget: %s, %d min %d sec since last draw",
-                    currentWidget->getName().c_str(), minutes, seconds);
+        Log.traceln("Drawing widget: %s", currentWidget->getName().c_str());
         if (m_clearScreensOnDrawCurrent) {
             m_screenManager->clearAllScreens();
             m_clearScreensOnDrawCurrent = false;
@@ -37,13 +31,7 @@ void WidgetSet::drawCurrent(bool force) {
 void WidgetSet::updateCurrent() {
     Widget *currentWidget = m_widgets[m_currentWidget];
     if (currentWidget->isItTimeToUpdate()) {
-        unsigned long currentTime = millis();
-        unsigned long lastUpdateTime = currentWidget->getLastUpdateTime();
-        unsigned long timeSinceLastUpdate = (lastUpdateTime > 0) ? (currentTime - lastUpdateTime) : 0;
-        uint32_t minutes = timeSinceLastUpdate / 60000; // Convert ms to minutes
-        uint32_t seconds = (timeSinceLastUpdate % 60000) / 1000; // Remaining ms to seconds
-        Log.traceln("Time to update widget: %s, %d min %d sec since last update",
-                    currentWidget->getName().c_str(), minutes, seconds);
+        Log.traceln("Updating widget: %s", currentWidget->getName().c_str());
         currentWidget->update();
     }
 }
