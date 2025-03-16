@@ -61,7 +61,7 @@ To use logging in your code, include the following:
 
 ### Examples
 
-**(note: all of these methods have variants without the trailing 'ln' e.g. Log.info(). The difference being the ln variant adds a newline character (\n))**
+Note: all of these methods have variants without the trailing 'ln' e.g. Log.info(). The difference being the ln variant adds a newline character (\n))
 
 ```cpp
 Log.infoln("This is an info message.");

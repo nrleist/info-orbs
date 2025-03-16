@@ -17,6 +17,7 @@ The `TaskFactory` class is responsible for creating tasks that can be executed b
   - `Task::PreProcessCallback preProcess` (optional): A function that will pre-process the response before it is passed to the callback.
 - **Returns**: A `std::unique_ptr<Task>` representing the HTTP task.
 - **Example**:
+
   ```cpp
   auto task = TaskFactory::createHttpGetTask(
       "https://example.com/api/data",
@@ -41,6 +42,7 @@ The `TaskFactory` class is responsible for creating tasks that can be executed b
   - `Task::ResponseCallback callback`: The callback function that will be called with the MQTT response.
 - **Returns**: A `std::unique_ptr<Task>` representing the MQTT task.
 - **Example**:
+
   ```cpp
   auto task = TaskFactory::createMqttTask(
       "home/sensor/temperature",
@@ -62,6 +64,7 @@ The `TaskManager` singleton class is responsible for managing and executing task
 - **Description**: Returns the singleton instance of the `TaskManager`.
 - **Returns**: A pointer to the `TaskManager` instance.
 - **Example**:
+
   ```cpp
   TaskManager* manager = TaskManager::getInstance();
   ```
@@ -75,6 +78,7 @@ The `TaskManager` singleton class is responsible for managing and executing task
   - `std::unique_ptr<Task> task`: The task to be added to the queue.
 - **Returns**: `true` if the task was successfully added to the queue, `false` otherwise.
 - **Example**:
+
   ```cpp
   auto task = TaskFactory::createHttpTask(
       "https://example.com/api/data",
@@ -95,6 +99,7 @@ The `TaskManager` singleton class is responsible for managing and executing task
 
 - **Description**: Processes tasks that are waiting in the queue. This method is called from the mainline loop to ensure tasks are executed.
 - **Example**:
+
   ```cpp
   TaskManager::getInstance()->processAwaitingTasks();
   ```
@@ -105,6 +110,7 @@ The `TaskManager` singleton class is responsible for managing and executing task
 
 - **Description**: Processes responses from completed tasks. This method is called from the mainline loop to process task responses.
 - **Example**:
+
   ```cpp
   TaskManager::getInstance()->processTaskResponses();
   ```
