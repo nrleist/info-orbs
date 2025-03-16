@@ -2,41 +2,41 @@
 
 Tip: If you're coming from the Youtube video, skip to step 11, as all the earlier steps for installing all the prerequisites are the same. The install process is still very similar, just some config settings and file locations have changed
 
-1.  Download, unzip and install the CP210x drivers needed to connect the device to you computer from <https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads>
+1. Download, unzip and install the CP210x drivers needed to connect the device to you computer from <https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads>
 
     Ensure to select the correct operating system for the computer you're using.
 
     ![Ensure to select the correct operating system for the computer you're using.](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2024-12-08/3e57b18f-592d-4f2c-9ea7-a520e7f1f723/ascreenshot.jpeg?tl_px=353,473&br_px=2073,1434&force_format=jpeg&q=100&width=1120.0&wat=1&wat_opacity=0.7&wat_gravity=northwest&wat_url=https://colony-recorder.s3.us-west-1.amazonaws.com/images/watermarks/FB923C_standard.png&wat_pad=524,277)
 
-2.  Ensure to go through the entire install process, it should be very straight forward
+2. Ensure to go through the entire install process, it should be very straight forward
 
     ![Ensure to go through the entire install process, it should be very straight forward](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2024-12-08/77c144b9-88c9-47b9-8efe-ea8b0483c56f/ascreenshot.jpeg?tl_px=0,56&br_px=1719,1018&force_format=jpeg&q=100&width=1120.0&wat=1&wat_opacity=0.7&wat_gravity=northwest&wat_url=https://colony-recorder.s3.us-west-1.amazonaws.com/images/watermarks/FB923C_standard.png&wat_pad=611,11)
 
-3.  Download, unzip and install the VSC code editor from <https://code.visualstudio.com/download>. Ensure to select the correct operating system for the computer you're using.
+3. Download, unzip and install the VSC code editor from <https://code.visualstudio.com/download>. Ensure to select the correct operating system for the computer you're using.
 
     ![Download, unzip and install the VSC code editor](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2024-12-08/ba402de3-e04f-4557-a1ba-888e2b8ff5b9/ascreenshot.jpeg?tl_px=975,738&br_px=2695,1699&force_format=jpeg&q=100&width=1120.0&wat=1&wat_opacity=0.7&wat_gravity=northwest&wat_url=https://colony-recorder.s3.us-west-1.amazonaws.com/images/watermarks/FB923C_standard.png&wat_pad=700,290)
 
-4.  Once installed, open VSC
+4. Once installed, open VSC
 
     ![Once installed, open VSC](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2024-12-08/925e83d6-ddd8-493e-9392-d07d68abd5ce/ascreenshot.jpeg?tl_px=916,358&br_px=2636,1319&force_format=jpeg&q=100&width=1120.0&wat=1&wat_opacity=0.7&wat_gravity=northwest&wat_url=https://colony-recorder.s3.us-west-1.amazonaws.com/images/watermarks/FB923C_standard.png&wat_pad=524,277)
 
-5.  Select the extensions menu on the left hand sidebar.
+5. Select the extensions menu on the left hand sidebar.
 
     ![Select the extensions menu on the left hand sidebar](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2024-12-08/31ff1d72-ad2f-4081-955f-b55205287398/ascreenshot.jpeg?tl_px=412,113&br_px=2132,1074&force_format=jpeg&q=100&width=1120.0&wat=1&wat_opacity=0.7&wat_gravity=northwest&wat_url=https://colony-recorder.s3.us-west-1.amazonaws.com/images/watermarks/FB923C_standard.png&wat_pad=114,257)
 
-6.  Search for "PlatformIO", and install it by clicking the install button in the searched list
+6. Search for "PlatformIO", and install it by clicking the install button in the searched list
 
     ![Search for "PlatformIO", and install it by clicking the install button in the searched list](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2024-12-08/c2ce1cc8-8af5-48aa-ade3-0254856c08ee/ascreenshot.jpeg?tl_px=378,0&br_px=2098,961&force_format=jpeg&q=100&width=1120.0&wat=1&wat_opacity=0.7&wat_gravity=northwest&wat_url=https://colony-recorder.s3.us-west-1.amazonaws.com/images/watermarks/FB923C_standard.png&wat_pad=524,230)
 
-7.  Fully close out of VSC.
+7. Fully close out of VSC.
 
     ![Fully close out of VSC.](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2024-12-08/f0359c02-7113-48f8-9c50-949fc32343b4/ascreenshot.jpeg?tl_px=0,0&br_px=1719,961&force_format=jpeg&q=100&width=1120.0&wat=1&wat_opacity=0.7&wat_gravity=northwest&wat_url=https://colony-recorder.s3.us-west-1.amazonaws.com/images/watermarks/FB923C_standard.png&wat_pad=366,34)
 
-8.  Click the Address and search bar text field
+8. Click the Address and search bar text field
 
     ![Click the Address and search bar text field](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2024-12-08/e7f79acb-fe05-4b85-9a4e-b8df7918bf86/ascreenshot.jpeg?tl_px=234,0&br_px=1953,961&force_format=jpeg&q=100&width=1120.0&wat=1&wat_opacity=0.7&wat_gravity=northwest&wat_url=https://colony-recorder.s3.us-west-1.amazonaws.com/images/watermarks/FB923C_standard.png&wat_pad=524,94)
 
-9.  Navigate to <https://github.com/brettdottech/info-orbs> and download the latest firmware for the device by clicking on the green "Code" button, and the selecting "Download ZIP", then unzip that file
+9. Navigate to <https://github.com/brettdottech/info-orbs> and download the latest firmware for the device by clicking on the green "Code" button, and the selecting "Download ZIP", then unzip that file
 
     ![Navigate to <https://github.com/brettdottech/info-orbs> and download](https://ajeuwbhvhr.cloudimg.io/colony-recorder.s3.amazonaws.com/files/2024-12-08/56e3fba6-4279-487c-a789-9d01960388fe/ascreenshot.jpeg?tl_px=629,564&br_px=2349,1526&force_format=jpeg&q=100&width=1120.0&wat=1&wat_opacity=0.7&wat_gravity=northwest&wat_url=https://colony-recorder.s3.us-west-1.amazonaws.com/images/watermarks/FB923C_standard.png&wat_pad=515,438)
 
