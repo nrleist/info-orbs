@@ -46,6 +46,7 @@ Version 1.1 is here, in the future releases will be more frequent, but this one 
 
 If you use the PCB soldering should be straight forward, however if you want to wire thing up yourself the pinouts are below:
 
+```text
     DSP-----ESP
     SDA -> G17
     SCLK -> G23
@@ -58,6 +59,7 @@ If you use the PCB soldering should be straight forward, however if you want to 
     Screen3 CS -> G32
     Screen4 CS -> G25
     Screen5 CS -> G21
+```
 
 Lastly, three pushbuttons between `VCC/5V` and `G14,G26,G27.`
 Diagram can be seen below:
@@ -82,10 +84,12 @@ Once you're done this, you can flash the firmware to your orbs by holding the "b
 **Basic Setup Fields**
 
 - Wifi is now configured on device using WifiManager by connected to the devices access point upon boot. However if this does not work, you may manually configure your wifi details using the fields in the config file (only do this as a last resort.)
+
   ```c
   //#define WIFI_SSID "MyWiFiRouter" // Wifi router SSID name (use only 2.4 GHz   network)
   //#define WIFI_PASS "WiFiPassword" // Wifi router password
   ```
+
 - Timezone configuration, you will need to change the below field to your local timezone, or timezone you want displayed on the devices clock(s). Please copy/paste the exact timezone as outline in this list <https://timezonedb.com/time-zones>
 
   ```c
@@ -107,7 +111,8 @@ Once you're done this, you can flash the firmware to your orbs by holding the "b
 
 **Widgets & Widget Settings**
 
-1. **Clock** (Enabled By Default) - this will show the time on the orbs with multiple means of customization. The default settings for the clock will switch between the default and "nixie" style clock upon a short press of the middle button. It will switch between 12/24 hours by a medium press(~0.5 seconds) of the same middle button. The clock has many other configureable elements that can be found in config.h as shown below, feel free to mess around with them to make it your own (:
+1. **Clock** (Enabled By Default) - this will show the time on the orbs with multiple means of customization. The default settings for the clock will switch between the default and "nixie" style clock upon a short press of the middle button.
+   It will switch between 12/24 hours by a medium press(~0.5 seconds) of the same middle button. The clock has many other configureable elements that can be found in config.h as shown below, feel free to mess around with them to make it your own (:
 
    ```c
    // CLOCK CONFIGURATION
@@ -157,5 +162,5 @@ And thats it, goodluck & happy orbin (:
 A massive thank you to the community that has helped, this is my first open source project(honestly first project of any sort) so thy help of all you super smart people has just been so so incredible and I couldn't have got this anywhere near where it is now without everyone. Thanks for building this with me. Love ya'll! ♥️
 
 <a href="https://github.com/brett-dot-tech/info-orbs/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=brett-dot-tech/info-orbs" />
+<img src="https://contrib.rocks/image?repo=brett-dot-tech/info-orbs" alt="info-orbs contributors"/>
 </a>

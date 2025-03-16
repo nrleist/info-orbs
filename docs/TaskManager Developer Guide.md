@@ -1,10 +1,14 @@
-# TaskFactory API Documentation
+# TaskManager Developer Guide
+
+This document describes the use of TaskManager and TaskFactory APIs.
+
+## TaskFactory API Documentation
 
 The `TaskFactory` class is responsible for creating tasks that can be executed by the `TaskManager`. It provides factory methods to create different types of tasks, such as HTTP and MQTT tasks and can be extended for other task types.
 
-## Current Methods
+### Current Methods
 
-### `createHttpGetTask`
+#### `createHttpGetTask`
 
 - **Description**: Creates an HTTP task that will perform an HTTP GET request to the specified URL. The task will call the provided callback with the HTTP response.
 - **Parameters**:
@@ -29,7 +33,7 @@ The `TaskFactory` class is responsible for creating tasks that can be executed b
 
 ---
 
-### `createMqttTask`
+#### `createMqttTask`
 
 - **Description**: Creates an MQTT task. This is currently a placeholder and does not contain any actual MQTT logic yet.
 - **Parameters**:
@@ -47,13 +51,13 @@ The `TaskFactory` class is responsible for creating tasks that can be executed b
   TaskManager::getInstance()->addTask(std::move(task));
   ```
 
-# TaskManager API Documentation
+## TaskManager API Documentation
 
 The `TaskManager` singleton class is responsible for managing and executing tasks. It uses FreeRTOS Tasks to handle task thread execution and it also FreeRTOS semaphores and queues to ensure only a single task can run at a time and also to gaurd against data race conditions.
 
-## Methods
+### Methods
 
-### `getInstance`
+#### `getInstance`
 
 - **Description**: Returns the singleton instance of the `TaskManager`.
 - **Returns**: A pointer to the `TaskManager` instance.
@@ -64,7 +68,7 @@ The `TaskManager` singleton class is responsible for managing and executing task
 
 ---
 
-### `addTask`
+#### `addTask`
 
 - **Description**: Adds a task to the task queue for execution.
 - **Parameters**:
@@ -87,7 +91,7 @@ The `TaskManager` singleton class is responsible for managing and executing task
 
 ---
 
-### `processAwaitingTasks`
+#### `processAwaitingTasks`
 
 - **Description**: Processes tasks that are waiting in the queue. This method is called from the mainline loop to ensure tasks are executed.
 - **Example**:
@@ -97,7 +101,7 @@ The `TaskManager` singleton class is responsible for managing and executing task
 
 ---
 
-### `processTaskResponses`
+#### `processTaskResponses`
 
 - **Description**: Processes responses from completed tasks. This method is called from the mainline loop to process task responses.
 - **Example**:
@@ -107,7 +111,7 @@ The `TaskManager` singleton class is responsible for managing and executing task
 
 ---
 
-# Example Usage
+## Example Usage
 
 See the [WeatherWidget](/firmware/src/widgets/weatherwidget/WeatherWidget.cpp) for an example of how to use TaskFactory and TaskManager. The main steps include:
 
