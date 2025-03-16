@@ -18,7 +18,7 @@ StockWidget::StockWidget(ScreenManager &manager, ConfigManager &config) : Widget
     char *symbol = strtok(stockList, ",");
     m_stockCount = 0;
     do {
-        if (m_stockCount > MAX_STOCKS) {
+        if (m_stockCount >= MAX_STOCKS) {
             Log.warningln("MAX STOCKS UNABLE TO ADD MORE");
             break;
         }
@@ -174,6 +174,8 @@ void StockWidget::displayStock(int8_t displayIndex, StockDataModel &stock, uint3
 }
 
 void StockWidget::nextPage() {
+    if (m_pageCount <= 1)
+        return;
     // Reset the timer for the next page if we just switched manually
     m_prevMillisSwitch = millis();
     m_page = (m_page + 1) % m_pageCount;
