@@ -15,17 +15,37 @@ void WidgetSet::add(Widget *widget) {
 }
 
 void WidgetSet::drawCurrent(bool force) {
-    if (m_clearScreensOnDrawCurrent) {
-        m_screenManager->clearAllScreens();
-        m_clearScreensOnDrawCurrent = false;
-        m_widgets[m_currentWidget]->draw(true);
-    } else {
-        m_widgets[m_currentWidget]->draw(force);
+    Widget *currentWidget = m_widgets[m_currentWidget];
+    if (force || currentWidget->isItTimeToDraw()) {
+        unsigned long currentTime = millis();
+        unsigned long lastDrawTime = currentWidget->getLastDrawTime();
+        unsigned long timeSinceLastDraw = (lastDrawTime > 0) ? (currentTime - lastDrawTime) : 0;
+        uint32_t minutes = timeSinceLastDraw / 60000; // Convert ms to minutes
+        uint32_t seconds = (timeSinceLastDraw % 60000) / 1000; // Remaining ms to seconds
+        Log.traceln("Time to draw widget: %s, %d min %d sec since last draw",
+                    currentWidget->getName().c_str(), minutes, seconds);
+        if (m_clearScreensOnDrawCurrent) {
+            m_screenManager->clearAllScreens();
+            m_clearScreensOnDrawCurrent = false;
+            currentWidget->draw(true);
+        } else {
+            currentWidget->draw(force);
+        }
     }
 }
 
 void WidgetSet::updateCurrent() {
-    m_widgets[m_currentWidget]->update();
+    Widget *currentWidget = m_widgets[m_currentWidget];
+    if (currentWidget->isItTimeToUpdate()) {
+        unsigned long currentTime = millis();
+        unsigned long lastUpdateTime = currentWidget->getLastUpdateTime();
+        unsigned long timeSinceLastUpdate = (lastUpdateTime > 0) ? (currentTime - lastUpdateTime) : 0;
+        uint32_t minutes = timeSinceLastUpdate / 60000; // Convert ms to minutes
+        uint32_t seconds = (timeSinceLastUpdate % 60000) / 1000; // Remaining ms to seconds
+        Log.traceln("Time to update widget: %s, %d min %d sec since last update",
+                    currentWidget->getName().c_str(), minutes, seconds);
+        currentWidget->update();
+    }
 }
 
 Widget *WidgetSet::getCurrent() {
@@ -46,7 +66,6 @@ void WidgetSet::next() {
         m_currentWidget = 0;
     }
     if (!getCurrent()->isEnabled()) {
-        // Recursive call to next()
         next();
     } else {
         switchWidget();
@@ -60,7 +79,6 @@ void WidgetSet::prev() {
         m_currentWidget--;
     }
     if (!getCurrent()->isEnabled()) {
-        // Recursive call to next()
         prev();
     } else {
         switchWidget();
