@@ -31,7 +31,6 @@ private:
     void singleWeatherDeg(int displayIndex);
     void weatherText(int displayIndex);
     void threeDayWeather(int displayIndex);
-    // bool getWeatherData();
     int getClockStamp();
     void configureColors();
     WeatherFeed *createWeatherFeed();
@@ -55,8 +54,13 @@ private:
     uint16_t m_invertedForegroundColor;
     uint16_t m_invertedBackgroundColor;
 
-    const long m_weatherDelay = 600000; // Weather refresh rate
-    unsigned long m_weatherDelayPrev = 0;
+#ifndef WEATHER_UPDATE_DELAY
+    #define WEATHER_UPDATE_DELAY TimeFrequency::TenMinutes
+#endif
+
+#ifndef WEATHER_DRAW_DELAY
+    #define WEATHER_DRAW_DELAY TimeFrequency::ThirtySeconds
+#endif
 
     const int centre = 120; // Centre location of the screen(240x240)
 
@@ -74,5 +78,8 @@ private:
 
     int m_switchinterval = HIGH_LOW_INTERVAL;
     unsigned long m_prevMillisSwitch = 0;
+
+    WidgetTimer &m_drawTimer;
+    WidgetTimer &m_updateTimer;
 };
 #endif // WEATHERWIDGET_H
