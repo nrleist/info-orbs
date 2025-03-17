@@ -42,6 +42,9 @@ void addWidgets() {
 #ifdef INCLUDE_MQTT
     widgetSet->add(new MQTTWidget(*sm, *config));
 #endif
+#ifdef INCLUDE_MATRIXSCREEN
+    widgetSet->add(new MatrixWidget(*sm, *config));
+#endif
 #ifdef INCLUDE_5ZONE
     widgetSet->add(new FiveZoneWidget(*sm, *config));
 #endif
