@@ -1,14 +1,22 @@
 #include "GlobalTime.h"
 
+#include "ConfigManager.h"
+#include "Translations.h"
 #include "config_helper.h"
-#include <TimeLib.h>
+#include <ArduinoJson.h>
+#include <ArduinoLog.h>
 
 GlobalTime *GlobalTime::m_instance = nullptr;
 
 GlobalTime::GlobalTime() {
-    m_timeClient = new NTPClient(m_udp);
+    ConfigManager *cm = ConfigManager::getInstance();
+    m_timezoneLocation = cm->getConfigString("timezoneLoc", m_timezoneLocation); // config added in MainHelper
+    int clockFormat = cm->getConfigInt("clockFormat", CLOCK_FORMAT); // config added in ClockWidget
+    m_ntpServer = cm->getConfigString("ntpServer", m_ntpServer); // config added in MainHelper
+    Log.infoln("GlobalTime initialized, tzLoc=%s, clockFormat=%d, ntpServer=%s", m_timezoneLocation.c_str(), clockFormat, m_ntpServer.c_str());
+    m_format24hour = (clockFormat == CLOCK_FORMAT_24_HOUR);
+    m_timeClient = new NTPClient(m_udp, m_ntpServer.c_str(), 0, m_updateInterval);
     m_timeClient->begin();
-    m_timeClient->setPoolServerName(NTP_SERVER);
 }
 
 GlobalTime::~GlobalTime() {
@@ -22,29 +30,36 @@ GlobalTime *GlobalTime::getInstance() {
     return m_instance;
 }
 
-void GlobalTime::updateTime() {
-    if (millis() - m_updateTimer > m_oneSecond) {
-        if (m_timeZoneOffset == -1 || (m_nextTimeZoneUpdate > 0 && m_unixEpoch > m_nextTimeZoneUpdate)) {
-            getTimeZoneOffsetFromAPI();
-        }
-        m_timeClient->update();
-        m_unixEpoch = m_timeClient->getEpochTime();
-        m_updateTimer = millis();
-        m_minute = minute(m_unixEpoch);
-        if (m_format24hour) {
-            m_hour = hour(m_unixEpoch);
-        } else {
-            m_hour = hourFormat12(m_unixEpoch);
-        }
-        m_hour24 = hour(m_unixEpoch);
-        m_second = second(m_unixEpoch);
+time_t GlobalTime::getUnixEpochIfAvailable() {
+    return m_instance ? m_instance->getUnixEpoch() : 0;
+}
 
-        m_day = day(m_unixEpoch);
-        m_month = month(m_unixEpoch);
-        m_monthName = LOC_MONTH[m_month - 1];
-        m_year = year(m_unixEpoch);
-        m_weekday = LOC_WEEKDAY[(weekday(m_unixEpoch)) -1];
-        m_time = String(m_hour) + ":" + (m_minute < 10 ? "0" + String(m_minute) : String(m_minute));
+void GlobalTime::updateTime(bool force) {
+    if (force || millis() - m_updateTimer > m_oneSecond) {
+        m_updateTimer = millis();
+        m_timeClient->update();
+        if (m_timeClient->isTimeSet()) {
+            // NTP time is valid
+            if (m_timeZoneOffset == -1 || (m_nextTimeZoneUpdate > 0 && m_unixEpoch > m_nextTimeZoneUpdate)) {
+                getTimeZoneOffsetFromAPI();
+            }
+            m_unixEpoch = m_timeClient->getEpochTime();
+            m_minute = minute(m_unixEpoch);
+            if (m_format24hour) {
+                m_hour = hour(m_unixEpoch);
+            } else {
+                m_hour = hourFormat12(m_unixEpoch);
+            }
+            m_hour24 = hour(m_unixEpoch);
+            m_second = second(m_unixEpoch);
+
+            m_day = day(m_unixEpoch);
+            m_month = month(m_unixEpoch);
+            m_monthName = i18n(t_months, m_month - 1);
+            m_year = year(m_unixEpoch);
+            m_weekday = i18n(t_weekdays, weekday(m_unixEpoch) - 1);
+            m_time = String(m_hour) + ":" + (m_minute < 10 ? "0" + String(m_minute) : String(m_minute));
+        }
     }
 }
 
@@ -115,7 +130,7 @@ String GlobalTime::getWeekday() {
 
 String GlobalTime::getDayAndMonth() {
 #ifdef WEATHER_UNITS_METRIC
-    String retVal = LOC_FORMAT_DAYMONTH;
+    String retVal = i18n(t_dayMonthFormat);
     retVal.replace("%d", String(m_day));
     retVal.replace("%B", m_monthName);
     return retVal;
@@ -132,31 +147,44 @@ bool GlobalTime::isPM() {
 
 void GlobalTime::getTimeZoneOffsetFromAPI() {
     HTTPClient http;
-    http.begin(String(TIMEZONE_API_URL) + "?key=" + TIMEZONE_API_KEY + "&format=json&fields=gmtOffset,zoneEnd&by=zone&zone=" + String(TIMEZONE_API_LOCATION));
+    http.begin(String(TIMEZONE_API_URL) + "?timeZone=" + String(m_timezoneLocation.c_str()));
+
     int httpCode = http.GET();
 
     if (httpCode > 0) {
         JsonDocument doc;
         DeserializationError error = deserializeJson(doc, http.getString());
         if (!error) {
-            m_timeZoneOffset = doc["gmtOffset"].as<int>();
-            if (doc["zoneEnd"].isNull()) {
-                // Timezone does not use DST, no futher updates necessary
-                m_nextTimeZoneUpdate = 0;
-            } else {
-                // Timezone uses DST, update when necessary
-                m_nextTimeZoneUpdate = doc["zoneEnd"].as<unsigned long>() + random(5 * 60); // Randomize update by 5 minutes to avoid flooding the API
+            m_timeZoneOffset = doc["currentUtcOffset"]["seconds"].as<int>();
+            if (doc["hasDayLightSaving"].as<bool>()) {
+                String dstStart = doc["dstInterval"]["dstStart"].as<String>();
+                String dstEnd = doc["dstInterval"]["dstEnd"].as<String>();
+                bool dstActive = doc["isDayLightSavingActive"].as<bool>();
+                tmElements_t m_temp_t;
+                if (dstActive) {
+                    m_temp_t.Year = dstEnd.substring(0, 4).toInt() - 1970;
+                    m_temp_t.Month = dstEnd.substring(5, 7).toInt();
+                    m_temp_t.Day = dstEnd.substring(8, 10).toInt();
+                    m_temp_t.Hour = dstEnd.substring(11, 13).toInt();
+                    m_temp_t.Minute = dstEnd.substring(14, 16).toInt();
+                    m_temp_t.Second = dstEnd.substring(17, 19).toInt();
+                } else {
+                    m_temp_t.Year = dstStart.substring(0, 4).toInt() - 1970;
+                    m_temp_t.Month = dstStart.substring(5, 7).toInt();
+                    m_temp_t.Day = dstStart.substring(8, 10).toInt();
+                    m_temp_t.Hour = dstStart.substring(11, 13).toInt();
+                    m_temp_t.Minute = dstStart.substring(14, 16).toInt();
+                    m_temp_t.Second = dstStart.substring(17, 19).toInt();
+                }
+                m_nextTimeZoneUpdate = makeTime(m_temp_t) + random(5 * 60); // Randomize update by 5 minutes to avoid flooding the API;
             }
-            Serial.print("Timezone Offset from API: ");
-            Serial.println(m_timeZoneOffset);
-            Serial.print("Next timezone update: ");
-            Serial.println(m_nextTimeZoneUpdate);
+            Log.infoln("Timezone Offset from API: %d; Next timezone update: %d", m_timeZoneOffset, m_nextTimeZoneUpdate);
             m_timeClient->setTimeOffset(m_timeZoneOffset);
         } else {
-            Serial.println("Deserialization error on timezone offset API response");
+            Log.warningln("Deserialization error on timezone offset API response");
         }
     } else {
-        Serial.println("Failed to get timezone offset from API");
+        Log.warningln("Failed to get timezone offset from API");
     }
 }
 
