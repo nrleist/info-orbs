@@ -15,17 +15,25 @@ void WidgetSet::add(Widget *widget) {
 }
 
 void WidgetSet::drawCurrent(bool force) {
-    if (m_clearScreensOnDrawCurrent) {
-        m_screenManager->clearAllScreens();
-        m_clearScreensOnDrawCurrent = false;
-        m_widgets[m_currentWidget]->draw(true);
-    } else {
-        m_widgets[m_currentWidget]->draw(force);
+    Widget *currentWidget = m_widgets[m_currentWidget];
+    if (force || currentWidget->isItTimeToDraw()) {
+        Log.traceln("Drawing widget: %s", currentWidget->getName().c_str());
+        if (m_clearScreensOnDrawCurrent) {
+            m_screenManager->clearAllScreens();
+            m_clearScreensOnDrawCurrent = false;
+            currentWidget->draw(true);
+        } else {
+            currentWidget->draw(force);
+        }
     }
 }
 
 void WidgetSet::updateCurrent() {
-    m_widgets[m_currentWidget]->update();
+    Widget *currentWidget = m_widgets[m_currentWidget];
+    if (currentWidget->isItTimeToUpdate()) {
+        Log.traceln("Updating widget: %s", currentWidget->getName().c_str());
+        currentWidget->update();
+    }
 }
 
 Widget *WidgetSet::getCurrent() {
@@ -46,7 +54,6 @@ void WidgetSet::next() {
         m_currentWidget = 0;
     }
     if (!getCurrent()->isEnabled()) {
-        // Recursive call to next()
         next();
     } else {
         switchWidget();
@@ -60,7 +67,6 @@ void WidgetSet::prev() {
         m_currentWidget--;
     }
     if (!getCurrent()->isEnabled()) {
-        // Recursive call to next()
         prev();
     } else {
         switchWidget();

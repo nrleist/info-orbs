@@ -17,9 +17,12 @@
 #include <ArduinoJson.h>
 #include <ArduinoLog.h>
 
-WeatherWidget::WeatherWidget(ScreenManager &manager, ConfigManager &config) : Widget(manager, config) {
+WeatherWidget::WeatherWidget(ScreenManager &manager, ConfigManager &config)
+    : Widget(manager, config),
+      m_weatherUnits(0),
+      m_drawTimer(addDrawRefreshFrequency(WEATHER_DRAW_DELAY)),
+      m_updateTimer(addUpdateRefreshFrequency(WEATHER_UPDATE_DELAY)) {
     m_enabled = (INCLUDE_WEATHER == WIDGET_ON);
-    m_weatherUnits = 0;
     m_config.addConfigBool("WeatherWidget", "weatherEnabled", &m_enabled, t_enableWidget);
     weatherFeed = createWeatherFeed();
     weatherFeed->setupConfig(config); // allow feed to add its own config
@@ -81,23 +84,25 @@ void WeatherWidget::draw(bool force) {
         singleWeatherDeg(3);
         threeDayWeather(4);
         model.setChangedStatus(false);
+        if (force) {
+            resetTimer(m_drawTimer); // Reset only on forced draw
+        }
     }
 
     if ((millis() - m_prevMillisSwitch >= (m_switchinterval * 1000)) && m_switchinterval > 0) {
         changeMode();
+        m_prevMillisSwitch = millis(); // Reset timer
     }
 }
 
 void WeatherWidget::update(bool force) {
-    if (force || m_weatherDelayPrev == 0 || (millis() - m_weatherDelayPrev) >= m_weatherDelay) {
-        if (force) {
-            int retry = 0;
-            while (!weatherFeed->getWeatherData(model) && retry++ < MAX_RETRIES)
-                ;
-        } else {
-            weatherFeed->getWeatherData(model);
-        }
-        m_weatherDelayPrev = millis();
+    if (force) {
+        int retry = 0;
+        while (!weatherFeed->getWeatherData(model) && retry++ < MAX_RETRIES)
+            ;
+        resetTimer(m_updateTimer); // Reset timer after forced update
+    } else {
+        weatherFeed->getWeatherData(model);
     }
 }
 
