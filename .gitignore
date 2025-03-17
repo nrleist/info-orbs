@@ -14,8 +14,11 @@
 
 # Arduino libraries (if installed in the project directory)
 libraries/
+
+# Local configuration and other untracked files
 firmware/config/config.h
-firmware/config/orb_config.h
+*&&&*
+
 
 .pio
 
