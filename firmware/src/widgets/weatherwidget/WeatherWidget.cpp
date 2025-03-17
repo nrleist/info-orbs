@@ -19,7 +19,6 @@
 
 WeatherWidget::WeatherWidget(ScreenManager &manager, ConfigManager &config)
     : Widget(manager, config),
-      m_weatherUnits(0),
       m_drawTimer(addDrawRefreshFrequency(WEATHER_DRAW_DELAY)),
       m_updateTimer(addUpdateRefreshFrequency(WEATHER_UPDATE_DELAY)) {
     m_enabled = true; // Enabled by default
