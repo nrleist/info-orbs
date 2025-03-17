@@ -105,12 +105,8 @@
     #define SPI_FREQUENCY 27000000
 #endif
 
-#ifndef TIMEZONE_API_KEY
-    #define TIMEZONE_API_KEY "97R9WKDPBLIO"
-#endif
-
 #ifndef TIMEZONE_API_URL
-    #define TIMEZONE_API_URL "http://api.timezonedb.com/v2.1/get-time-zone"
+    #define TIMEZONE_API_URL "https://timeapi.io/api/timezone/zone"
 #endif
 
 #ifndef TIMEZONE_API_LOCATION
