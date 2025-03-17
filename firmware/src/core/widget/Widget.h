@@ -9,26 +9,6 @@
 
 class WidgetTimer;
 
-enum class TimeFrequency : unsigned long {
-    Immediate = 0,
-    OneHundredMilliseconds = 100,
-    OneSecond = 1000,
-    TwoSeconds = 2000,
-    ThreeSeconds = 3000,
-    FourSeconds = 4000,
-    FiveSeconds = 5000,
-    TenSeconds = 10000,
-    ThirtySeconds = 30000,
-    OneMinute = 60000,
-    FiveMinutes = 300000,
-    TenMinutes = 600000,
-    FifteenMinutes = 900000,
-    ThirtyMinutes = 1800000,
-    OneHour = 3600000,
-    OneDay = 86400000,
-    OneWeek = 604800000
-};
-
 class Widget {
 public:
     Widget(ScreenManager &manager, ConfigManager &config);
