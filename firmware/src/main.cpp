@@ -2,6 +2,7 @@
 #include "MainHelper.h"
 #include "clockwidget/ClockWidget.h"
 #include "matrixwidget/MatrixWidget.h"
+#include "5zonewidget/5ZoneWidget.h"
 #include "mqttwidget/MQTTWidget.h"
 #include "parqetwidget/ParqetWidget.h"
 #include "stockwidget/StockWidget.h"
@@ -44,6 +45,9 @@ void addWidgets() {
 #endif
 #ifdef INCLUDE_MATRIXSCREEN
     widgetSet->add(new MatrixWidget(*sm, *config));
+#endif
+#ifdef INCLUDE_5ZONE
+    widgetSet->add(new FiveZoneWidget(*sm, *config));
 #endif
 }
 
