@@ -149,6 +149,10 @@
     #define INCLUDE_MATRIXSCREEN WIDGET_OFF
 #endif
 
+#ifndef INCLUDE_5ZONE
+    #define INCLUDE_5ZONE WIDGET_OFF
+#endif
+
 // CLOCK WIDGET SETTINGS
 #ifndef FORMAT_24_HOUR
     #define FORMAT_24_HOUR false

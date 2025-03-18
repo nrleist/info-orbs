@@ -48,7 +48,7 @@ void addWidgets() {
 #if INCLUDE_MATRIXSCREEN != WIDGET_DISABLED
     widgetSet->add(new MatrixWidget(*sm, *config));
 #endif
-#ifdef INCLUDE_5ZONE
+#if INCLUDE_5ZONE != WIDGET_DISABLED
     widgetSet->add(new FiveZoneWidget(*sm, *config));
 #endif
 }
