@@ -12,6 +12,7 @@ ParqetWidget::ParqetWidget(ScreenManager &manager, ConfigManager &config)
       m_drawTimer(addDrawRefreshFrequency(PARQET_DRAW_DELAY)),
       m_updateTimer(addUpdateRefreshFrequency(PARQET_UPDATE_DELAY)) {
     Serial.printf("Constructing ParqetWidget, portfolioId=%s\n", m_portfolioId.c_str());
+    m_enabled = (INCLUDE_PARQET == WIDGET_ON);
     m_config.addConfigBool("ParqetWidget", "pqEnabled", &m_enabled, t_enableWidget);
     m_config.addConfigString("ParqetWidget", "pqportfoId", &m_portfolioId, 50, t_pqPortfolioId);
     m_config.addConfigComboBox("ParqetWidget", "pqDefMode", &m_defaultMode, t_pqTimeframes, t_pqTimeframe, true);

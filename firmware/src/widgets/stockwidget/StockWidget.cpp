@@ -9,7 +9,8 @@ StockWidget::StockWidget(ScreenManager &manager, ConfigManager &config)
     : Widget(manager, config),
       m_drawTimer(addDrawRefreshFrequency(STOCK_DRAW_DELAY)),
       m_updateTimer(addUpdateRefreshFrequency(STOCK_UPDATE_DELAY)) {
-    m_enabled = true; // Enabled by default
+    m_enabled = (INCLUDE_STOCK == WIDGET_ON);
+
     m_config.addConfigBool("StockWidget", "stocksEnabled", &m_enabled, t_enableWidget);
     m_config.addConfigString("StockWidget", "stockList", &m_stockList, 200, t_stockList);
     char stockList[m_stockList.size()];

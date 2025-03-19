@@ -21,7 +21,7 @@ WeatherWidget::WeatherWidget(ScreenManager &manager, ConfigManager &config)
     : Widget(manager, config),
       m_drawTimer(addDrawRefreshFrequency(WEATHER_DRAW_DELAY)),
       m_updateTimer(addUpdateRefreshFrequency(WEATHER_UPDATE_DELAY)) {
-    m_enabled = true; // Enabled by default
+    m_enabled = (INCLUDE_WEATHER == WIDGET_ON);
     m_config.addConfigBool("WeatherWidget", "weatherEnabled", &m_enabled, t_enableWidget);
     weatherFeed = createWeatherFeed();
     weatherFeed->setupConfig(config); // allow feed to add its own config

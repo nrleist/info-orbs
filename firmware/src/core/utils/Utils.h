@@ -11,6 +11,11 @@ enum ScreenMode {
     Dark = 1
 };
 
+// Widget states
+#define WIDGET_DISABLED 0
+#define WIDGET_OFF 1
+#define WIDGET_ON 2
+
 enum class TimeFrequency : unsigned long {
     Immediate = 0,
     OneHundredMilliseconds = 100,
