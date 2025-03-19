@@ -4,7 +4,7 @@
 #include <ArduinoLog.h>
 
 FiveZoneWidget::FiveZoneWidget(ScreenManager &manager, ConfigManager &config) : Widget(manager, config) {
-
+    m_enabled = (INCLUDE_5ZONE == WIDGET_ON);
     m_time = GlobalTime::getInstance();
 
     m_config.addConfigBool("FiveZoneWidget", "5zoEnabled", &m_enabled, t_enableWidget);

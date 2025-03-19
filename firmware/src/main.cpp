@@ -45,11 +45,11 @@ void addWidgets() {
 #if INCLUDE_MQTT != WIDGET_DISABLED
     widgetSet->add(new MQTTWidget(*sm, *config));
 #endif
-#if INCLUDE_MATRIXSCREEN != WIDGET_DISABLED
-    widgetSet->add(new MatrixWidget(*sm, *config));
-#endif
 #if INCLUDE_5ZONE != WIDGET_DISABLED
     widgetSet->add(new FiveZoneWidget(*sm, *config));
+#endif
+#if INCLUDE_MATRIXSCREEN != WIDGET_DISABLED
+    widgetSet->add(new MatrixWidget(*sm, *config));
 #endif
 }
 
