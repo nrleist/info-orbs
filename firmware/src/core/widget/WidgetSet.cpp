@@ -5,6 +5,10 @@ WidgetSet::WidgetSet(ScreenManager *sm) : m_screenManager(sm) {
 }
 
 void WidgetSet::add(Widget *widget) {
+    if (!widget->isEnabled()) {
+        Log.infoln("Widget %s is disabled", widget->getName().c_str());
+        return;
+    }
     if (m_widgetCount == MAX_WIDGETS) {
         Log.warningln("MAX WIDGETS UNABLE TO ADD");
         return;

@@ -81,6 +81,12 @@
     #define NTP_SERVER "pool.ntp.org"
 #endif
 
+// Maximum number of enabled widgets
+// The ESP might run out of memory if this is set too high
+#ifndef MAX_WIDGETS
+    #define MAX_WIDGETS 7
+#endif
+
 #ifndef SCREEN_SIZE
     #define SCREEN_SIZE 240
 #endif

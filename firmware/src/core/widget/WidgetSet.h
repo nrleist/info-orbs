@@ -5,7 +5,9 @@
 #include "Utils.h"
 #include "Widget.h"
 
-#define MAX_WIDGETS 5
+#ifndef MAX_WIDGETS
+    #define MAX_WIDGETS 5
+#endif
 
 class WidgetSet {
 public:
