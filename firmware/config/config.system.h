@@ -84,7 +84,7 @@
 // Maximum number of enabled widgets
 // The ESP might run out of memory if this is set too high
 #ifndef MAX_WIDGETS
-    #define MAX_WIDGETS 5
+    #define MAX_WIDGETS 7
 #endif
 
 #ifndef SCREEN_SIZE
